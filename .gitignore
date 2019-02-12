@@ -1,0 +1,6 @@
+.vs/
+_ReSharper.Caches/
+obj/
+bin/
+*.user
+*.Snk

@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net20</TargetFrameworks>
+    <RootNamespace>JetBrains.Profiler.Api</RootNamespace>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Subplatform.Snk</AssemblyOriginatorKeyFile>
+    <Version>1.0.9</Version>
+    <Company>JetBrains s.r.o.</Company>
+    <Copyright>Copyright © 2019 JetBrains s.r.o.</Copyright>
+    <Authors>Mikhail Pilin</Authors>
+    <Description>JetBrains Profiler API to control performace, coverage and memory profiling.</Description>
+    <PackageProjectUrl>https://github.com/ww898/profiler-api</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ww898/profiler-api</RepositoryUrl>
+    <PackageLicenseUrl>https://github.com/ww898/profiler-api/blob/master/LICENSE</PackageLicenseUrl>
+    <FileVersion>1.0.9.0</FileVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="_ReSharper.Caches\**" />
+    <EmbeddedResource Remove="_ReSharper.Caches\**" />
+    <None Remove="_ReSharper.Caches\**" />
+  </ItemGroup>
+</Project>
