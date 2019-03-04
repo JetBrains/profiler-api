@@ -10,13 +10,9 @@ namespace JetBrains.Profiler.Api.Impl
       throw new NotImplementedException();
     }
 
-    public static bool IsCoreApiLoaded()
+    public static bool IsLibCoreApiAlreadyLoaded()
     {
-      var handle = LibDyldDylib.dlopen(CoreApiDylib.LibraryName, (int) (DlFlags.RTLD_GLOBAL | DlFlags.RTLD_LAZY | DlFlags.RTLD_NOLOAD));
-      if (handle == IntPtr.Zero)
-        return false;
-      LibDyldDylib.dlclose(handle);
-      return true;
+      return UnixHelper.IsAlreadyLoaded(LibCoreApi.LibraryName + ".dylib");
     }
   }
 }

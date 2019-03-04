@@ -2,9 +2,9 @@
 
 namespace JetBrains.Profiler.Api.Impl.Unix
 {
-  internal static class CoreApiDylib
+  internal static class LibCoreApi
   {
-    public const string LibraryName = "libJetBrains.Profiler.CoreApi.dylib";
+    public const string LibraryName = "libJetBrains.Profiler.CoreApi"; // Note: No extension here, because should works on Linux and MacOsX
 
     #region Measure
 

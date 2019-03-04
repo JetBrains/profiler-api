@@ -33,7 +33,7 @@ namespace JetBrains.Profiler.Api.Impl
       }
     }
 
-    public static bool IsCoreApiLoaded()
+    public static bool IsCoreApiDllAlreadyLoaded()
     {
       return Kernel32Dll.GetModuleHandleW(CoreApiDll.LibraryName) != IntPtr.Zero;
     }

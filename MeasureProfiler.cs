@@ -15,15 +15,15 @@ namespace JetBrains.Profiler.Api
       {
       case PlatformId.Linux:
         return LinuxHelper.WaitForReadySignal(timeout) &&
-               LinuxHelper.IsCoreApiLoaded() &&
-               Helper.ThrowOnError(CoreApiSo.V1_Measure_CheckActive(Helper.Id, out _));
+               LinuxHelper.IsLibCoreApiAlreadyLoaded() &&
+               Helper.ThrowOnError(LibCoreApi.V1_Measure_CheckActive(Helper.Id, out _));
       case PlatformId.MacOsX:
         return MacOsXHelper.WaitForReadySignal(timeout) &&
-               MacOsXHelper.IsCoreApiLoaded() &&
-               Helper.ThrowOnError(CoreApiDylib.V1_Measure_CheckActive(Helper.Id, out _));
+               MacOsXHelper.IsLibCoreApiAlreadyLoaded() &&
+               Helper.ThrowOnError(LibCoreApi.V1_Measure_CheckActive(Helper.Id, out _));
       case PlatformId.Windows:
         return WindowsHelper.WaitForReadySignal(timeout) &&
-               WindowsHelper.IsCoreApiLoaded() &&
+               WindowsHelper.IsCoreApiDllAlreadyLoaded() &&
                Helper.ThrowOnError(CoreApiDll.V1_Measure_CheckActive(Helper.Id, out _));
       default:
         throw new PlatformNotSupportedException();
@@ -35,17 +35,17 @@ namespace JetBrains.Profiler.Api
       switch (Helper.Platform)
       {
       case PlatformId.Linux:
-        if (LinuxHelper.IsCoreApiLoaded())
-          if (Helper.ThrowOnError(CoreApiSo.V1_Measure_CheckActive(Helper.Id, out var features)))
+        if (LinuxHelper.IsLibCoreApiAlreadyLoaded())
+          if (Helper.ThrowOnError(LibCoreApi.V1_Measure_CheckActive(Helper.Id, out var features)))
             return features;
         break;
       case PlatformId.MacOsX:
-        if (MacOsXHelper.IsCoreApiLoaded())
-          if (Helper.ThrowOnError(CoreApiDylib.V1_Measure_CheckActive(Helper.Id, out var features)))
+        if (MacOsXHelper.IsLibCoreApiAlreadyLoaded())
+          if (Helper.ThrowOnError(LibCoreApi.V1_Measure_CheckActive(Helper.Id, out var features)))
             return features;
         break;
       case PlatformId.Windows:
-        if (WindowsHelper.IsCoreApiLoaded())
+        if (WindowsHelper.IsCoreApiDllAlreadyLoaded())
           if (Helper.ThrowOnError(CoreApiDll.V1_Measure_CheckActive(Helper.Id, out var features)))
             return features;
         break;
@@ -65,15 +65,15 @@ namespace JetBrains.Profiler.Api
       switch (Helper.Platform)
       {
       case PlatformId.Linux:
-        if (LinuxHelper.IsCoreApiLoaded())
-          Helper.ThrowOnError(CoreApiSo.V1_Measure_StartCollecting(Helper.Id, groupName));
+        if (LinuxHelper.IsLibCoreApiAlreadyLoaded())
+          Helper.ThrowOnError(LibCoreApi.V1_Measure_StartCollecting(Helper.Id, groupName));
         break;
       case PlatformId.MacOsX:
-        if (MacOsXHelper.IsCoreApiLoaded())
-          Helper.ThrowOnError(CoreApiDylib.V1_Measure_StartCollecting(Helper.Id, groupName));
+        if (MacOsXHelper.IsLibCoreApiAlreadyLoaded())
+          Helper.ThrowOnError(LibCoreApi.V1_Measure_StartCollecting(Helper.Id, groupName));
         break;
       case PlatformId.Windows:
-        if (WindowsHelper.IsCoreApiLoaded())
+        if (WindowsHelper.IsCoreApiDllAlreadyLoaded())
           Helper.ThrowOnError(CoreApiDll.V1_Measure_StartCollecting(Helper.Id, groupName));
         break;
       default:
@@ -86,15 +86,15 @@ namespace JetBrains.Profiler.Api
       switch (Helper.Platform)
       {
       case PlatformId.Linux:
-        if (LinuxHelper.IsCoreApiLoaded())
-          Helper.ThrowOnError(CoreApiSo.V1_Measure_StopCollecting(Helper.Id));
+        if (LinuxHelper.IsLibCoreApiAlreadyLoaded())
+          Helper.ThrowOnError(LibCoreApi.V1_Measure_StopCollecting(Helper.Id));
         break;
       case PlatformId.MacOsX:
-        if (MacOsXHelper.IsCoreApiLoaded())
-          Helper.ThrowOnError(CoreApiDylib.V1_Measure_StopCollecting(Helper.Id));
+        if (MacOsXHelper.IsLibCoreApiAlreadyLoaded())
+          Helper.ThrowOnError(LibCoreApi.V1_Measure_StopCollecting(Helper.Id));
         break;
       case PlatformId.Windows:
-        if (WindowsHelper.IsCoreApiLoaded())
+        if (WindowsHelper.IsCoreApiDllAlreadyLoaded())
           Helper.ThrowOnError(CoreApiDll.V1_Measure_StopCollecting(Helper.Id));
         break;
       default:
@@ -112,15 +112,15 @@ namespace JetBrains.Profiler.Api
       switch (Helper.Platform)
       {
       case PlatformId.Linux:
-        if (LinuxHelper.IsCoreApiLoaded())
-          Helper.ThrowOnError(CoreApiSo.V1_Measure_Save(Helper.Id, name));
+        if (LinuxHelper.IsLibCoreApiAlreadyLoaded())
+          Helper.ThrowOnError(LibCoreApi.V1_Measure_Save(Helper.Id, name));
         break;
       case PlatformId.MacOsX:
-        if (MacOsXHelper.IsCoreApiLoaded())
-          Helper.ThrowOnError(CoreApiDylib.V1_Measure_Save(Helper.Id, name));
+        if (MacOsXHelper.IsLibCoreApiAlreadyLoaded())
+          Helper.ThrowOnError(LibCoreApi.V1_Measure_Save(Helper.Id, name));
         break;
       case PlatformId.Windows:
-        if (WindowsHelper.IsCoreApiLoaded())
+        if (WindowsHelper.IsCoreApiDllAlreadyLoaded())
           Helper.ThrowOnError(CoreApiDll.V1_Measure_Save(Helper.Id, name));
         break;
       default:
@@ -133,15 +133,15 @@ namespace JetBrains.Profiler.Api
       switch (Helper.Platform)
       {
       case PlatformId.Linux:
-        if (LinuxHelper.IsCoreApiLoaded())
-          Helper.ThrowOnError(CoreApiSo.V1_Measure_Drop(Helper.Id));
+        if (LinuxHelper.IsLibCoreApiAlreadyLoaded())
+          Helper.ThrowOnError(LibCoreApi.V1_Measure_Drop(Helper.Id));
         break;
       case PlatformId.MacOsX:
-        if (MacOsXHelper.IsCoreApiLoaded())
-          Helper.ThrowOnError(CoreApiDylib.V1_Measure_Drop(Helper.Id));
+        if (MacOsXHelper.IsLibCoreApiAlreadyLoaded())
+          Helper.ThrowOnError(LibCoreApi.V1_Measure_Drop(Helper.Id));
         break;
       case PlatformId.Windows:
-        if (WindowsHelper.IsCoreApiLoaded())
+        if (WindowsHelper.IsCoreApiDllAlreadyLoaded())
           Helper.ThrowOnError(CoreApiDll.V1_Measure_Drop(Helper.Id));
         break;
       default:

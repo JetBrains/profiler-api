@@ -13,13 +13,13 @@ namespace JetBrains.Profiler.Api
       {
       case PlatformId.Linux:
         return LinuxHelper.WaitForReadySignal(timeout) &&
-               LinuxHelper.IsCoreApiLoaded();
+               LinuxHelper.IsLibCoreApiAlreadyLoaded();
       case PlatformId.MacOsX:
         return MacOsXHelper.WaitForReadySignal(timeout) &&
-               MacOsXHelper.IsCoreApiLoaded();
+               MacOsXHelper.IsLibCoreApiAlreadyLoaded();
       case PlatformId.Windows:
         return WindowsHelper.WaitForReadySignal(timeout) &&
-               WindowsHelper.IsCoreApiLoaded();
+               WindowsHelper.IsCoreApiDllAlreadyLoaded();
       default:
         throw new ArgumentOutOfRangeException();
       }
