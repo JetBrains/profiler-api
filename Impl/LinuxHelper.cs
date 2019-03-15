@@ -7,7 +7,8 @@ namespace JetBrains.Profiler.Api.Impl
   {
     public static bool WaitForReadySignal(TimeSpan timeout)
     {
-      throw new NotImplementedException();
+      // Todo: Should be implemented for attach!!!
+      return true;
     }
 
     public static bool IsLibCoreApiAlreadyLoaded()
