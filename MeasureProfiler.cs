@@ -14,17 +14,14 @@ namespace JetBrains.Profiler.Api
       switch (Helper.Platform)
       {
       case PlatformId.Linux:
-        return LinuxHelper.WaitForReadySignal(timeout) &&
-               LinuxHelper.IsLibCoreApiAlreadyLoaded() &&
-               Helper.ThrowOnError(LibCoreApi.V1_Measure_CheckActive(Helper.Id, out _));
+        return Helper.WaitFor(timeout, () => LinuxHelper.IsLibCoreApiAlreadyLoaded() &&
+                                             Helper.ThrowOnError(LibCoreApi.V1_Measure_CheckActive(Helper.Id, out _)));
       case PlatformId.MacOsX:
-        return MacOsXHelper.WaitForReadySignal(timeout) &&
-               MacOsXHelper.IsLibCoreApiAlreadyLoaded() &&
-               Helper.ThrowOnError(LibCoreApi.V1_Measure_CheckActive(Helper.Id, out _));
+        return Helper.WaitFor(timeout, () => MacOsXHelper.IsLibCoreApiAlreadyLoaded() &&
+                                             Helper.ThrowOnError(LibCoreApi.V1_Measure_CheckActive(Helper.Id, out _)));
       case PlatformId.Windows:
-        return WindowsHelper.WaitForReadySignal(timeout) &&
-               WindowsHelper.IsCoreApiDllAlreadyLoaded() &&
-               Helper.ThrowOnError(CoreApiDll.V1_Measure_CheckActive(Helper.Id, out _));
+        return Helper.WaitFor(timeout, () => WindowsHelper.IsCoreApiDllAlreadyLoaded() &&
+                                             Helper.ThrowOnError(CoreApiDll.V1_Measure_CheckActive(Helper.Id, out _)));
       default:
         throw new PlatformNotSupportedException();
       }

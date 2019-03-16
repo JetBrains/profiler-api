@@ -1,9 +1,16 @@
 ﻿using System;
+using System.Threading;
 
 namespace JetBrains.Profiler.Api.Impl
 {
   internal static class Helper
   {
+    #region Delegates
+
+    public delegate bool IsDoneDelegate();
+
+    #endregion
+
     public static readonly uint Id =
       (uint) checked((ushort) Environment.Version.Major) << 16 |
       checked((ushort) Environment.Version.Minor);
@@ -34,6 +41,18 @@ namespace JetBrains.Profiler.Api.Impl
       default:
         throw new InternalProfilerException((int) hr);
       }
+    }
+
+    public static bool WaitFor(TimeSpan timeout, IsDoneDelegate isDone)
+    {
+      var endTime = DateTime.UtcNow + timeout;
+      while (!isDone())
+      {
+        if (DateTime.UtcNow >= endTime)
+          return false;
+        Thread.Sleep(100);
+      }
+      return true;
     }
   }
 }

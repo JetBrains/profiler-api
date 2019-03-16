@@ -1,19 +1,18 @@
 ﻿using System;
+using JetBrains.Profiler.Api.Impl.MacOsX;
 using JetBrains.Profiler.Api.Impl.Unix;
 
 namespace JetBrains.Profiler.Api.Impl
 {
   internal static class MacOsXHelper
   {
-    public static bool WaitForReadySignal(TimeSpan timeout)
-    {
-      // Todo: Should be implemented for attach!!!
-      return true;
-    }
-
     public static bool IsLibCoreApiAlreadyLoaded()
     {
-      return UnixHelper.IsAlreadyLoaded(LibCoreApi.LibraryName + ".dylib");
+      var handle = LibNCursesDylib.dlopen(LibCoreApi.LibraryName + ".dylib", (int) (DlFlags.RTLD_GLOBAL | DlFlags.RTLD_LAZY | DlFlags.RTLD_NOLOAD));
+      if (handle == IntPtr.Zero)
+        return false;
+      LibNCursesDylib.dlclose(handle);
+      return true;
     }
   }
 }

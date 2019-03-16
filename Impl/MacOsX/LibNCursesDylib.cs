@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace JetBrains.Profiler.Api.Impl.Unix
+namespace JetBrains.Profiler.Api.Impl.MacOsX
 {
-  public static class LibDl
+  public static class LibNCursesDylib
   {
-    private const string LibraryName = "libdl"; // Note: No extension here, because should works on Linux and MacOsX
+    private const string LibraryName = "/usr/lib/libncurses.dylib";
 
     [DllImport(LibraryName, ExactSpelling = true)]
     public static extern IntPtr dlopen([MarshalAs(UnmanagedType.LPStr)] string filename, int flags);

@@ -38,14 +38,5 @@ namespace JetBrains.Profiler.Api.Impl
         throw new Exception("Unsupported system name: " + sysname);
       }
     }
-
-    public static bool IsAlreadyLoaded(string libraryName)
-    {
-      var handle = LibDl.dlopen(libraryName, (int) (DlFlags.RTLD_GLOBAL | DlFlags.RTLD_LAZY | DlFlags.RTLD_NOLOAD));
-      if (handle == IntPtr.Zero)
-        return false;
-      LibDl.dlclose(handle);
-      return true;
-    }
   }
 }
