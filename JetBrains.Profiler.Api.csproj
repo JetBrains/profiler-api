@@ -6,7 +6,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>Subplatform.Snk</AssemblyOriginatorKeyFile>
-    <Version>1.0.13</Version>
+    <Version>1.0.14</Version>
     <Company>JetBrains s.r.o.</Company>
     <Copyright>Copyright © 2019 JetBrains s.r.o.</Copyright>
     <Authors>Mikhail Pilin</Authors>
@@ -14,7 +14,7 @@
     <PackageProjectUrl></PackageProjectUrl>
     <RepositoryUrl>https://github.com/JetBrains/profiler-api</RepositoryUrl>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <FileVersion>1.0.13.0</FileVersion>
+    <FileVersion>1.0.14.0</FileVersion>
     <PackageIconUrl>https://resources.jetbrains.com/storage/products/resharper/img/meta/ReSharper_64.png</PackageIconUrl>
   </PropertyGroup>
   <ItemGroup>

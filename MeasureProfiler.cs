@@ -52,12 +52,12 @@ namespace JetBrains.Profiler.Api
       return MeasureFeatures.None;
     }
 
-    public static void StartCollecting()
+    public static void StartCollectingData()
     {
-      StartCollecting(null);
+      StartCollectingData(null);
     }
 
-    public static void StartCollecting(string groupName)
+    public static void StartCollectingData(string groupName)
     {
       switch (Helper.Platform)
       {
@@ -78,7 +78,7 @@ namespace JetBrains.Profiler.Api
       }
     }
 
-    public static void StopCollecting()
+    public static void StopCollectingData()
     {
       switch (Helper.Platform)
       {
@@ -99,12 +99,12 @@ namespace JetBrains.Profiler.Api
       }
     }
 
-    public static void Save()
+    public static void SaveData()
     {
-      Save(null);
+      SaveData(null);
     }
 
-    public static void Save(string name)
+    public static void SaveData(string name)
     {
       switch (Helper.Platform)
       {
@@ -125,7 +125,7 @@ namespace JetBrains.Profiler.Api
       }
     }
 
-    public static void Drop()
+    public static void DropData()
     {
       switch (Helper.Platform)
       {
