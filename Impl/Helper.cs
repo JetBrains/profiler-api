@@ -11,11 +11,17 @@ namespace JetBrains.Profiler.Api.Impl
 
     #endregion
 
-    public static readonly uint Id =
-      (uint) checked((ushort) Environment.Version.Major) << 16 |
-      checked((ushort) Environment.Version.Minor);
+    private static readonly Lazy<uint> ourId = new Lazy<uint>(DeduceId);
+    private static readonly Lazy<PlatformId> ourPlatform = new Lazy<PlatformId>(DeducePlatformId);
 
-    public static readonly PlatformId Platform = DeducePlatformId();
+    public static uint Id => ourId.Value;
+    public static PlatformId Platform => ourPlatform.Value;
+
+    private static uint DeduceId()
+    {
+      return (uint) checked((ushort) Environment.Version.Major) << 16 |
+             checked((ushort) Environment.Version.Minor);
+    }
 
     private static PlatformId DeducePlatformId()
     {

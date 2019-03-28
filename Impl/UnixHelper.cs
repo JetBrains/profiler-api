@@ -6,7 +6,9 @@ namespace JetBrains.Profiler.Api.Impl
 {
   internal static class UnixHelper
   {
-    public static readonly bool IsMacOsX = DeduceIsMacOsX();
+    private static readonly Lazy<bool> ourIsMacOsX = new Lazy<bool>(DeduceIsMacOsX);
+
+    public static bool IsMacOsX => ourIsMacOsX.Value;
 
     private static string GetSysnameFromUname()
     {
