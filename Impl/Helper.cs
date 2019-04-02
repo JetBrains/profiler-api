@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Threading;
 
+#if NETCOREAPP || NETSTANDARD
+using System.Runtime.InteropServices;
+#endif
+
 namespace JetBrains.Profiler.Api.Impl
 {
   internal static class Helper
@@ -19,21 +23,36 @@ namespace JetBrains.Profiler.Api.Impl
 
     private static uint DeduceId()
     {
-      return (uint) checked((ushort) Environment.Version.Major) << 16 |
-             checked((ushort) Environment.Version.Minor);
+#if NETCOREAPP1_0 || NETCOREAPP1_1
+      const ushort major = 4;
+      const ushort minor = 0;
+#else
+      var version = Environment.Version;
+      var major = checked((ushort) version.Major);
+      var minor = checked((ushort) version.Minor);
+#endif
+      return (uint) major << 16 | minor;
     }
 
     private static PlatformId DeducePlatformId()
     {
+#if NETCOREAPP || NETSTANDARD
+      if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        return PlatformId.Windows;
+      if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+        return PlatformId.MacOsX;
+      if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        return PlatformId.Linux;
+#else
       switch (Environment.OSVersion.Platform)
       {
       case PlatformID.Unix:
         return UnixHelper.IsMacOsX ? PlatformId.MacOsX : PlatformId.Linux;
       case PlatformID.Win32NT:
         return PlatformId.Windows;
-      default:
-        throw new PlatformNotSupportedException();
       }
+#endif
+      throw new PlatformNotSupportedException();
     }
 
     public static bool ThrowOnError(HResults hr)

@@ -1,6 +1,5 @@
 ﻿using System;
 
-// ReSharper disable InconsistentNaming
 // ReSharper disable UnusedMember.Global
 
 namespace JetBrains.Profiler.Api
