@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp1.0;netcoreapp2.0;netstandard2.0;net20</TargetFrameworks>
+    <TargetFrameworks>netstandard1.1;netstandard2.0;net20;net471</TargetFrameworks>
     <RootNamespace>JetBrains.Profiler.Api</RootNamespace>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

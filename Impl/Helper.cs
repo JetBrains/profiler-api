@@ -1,20 +1,10 @@
 ﻿using System;
-using System.Threading;
-
-#if NETCOREAPP || NETSTANDARD
 using System.Runtime.InteropServices;
-#endif
 
 namespace JetBrains.Profiler.Api.Impl
 {
   internal static class Helper
   {
-    #region Delegates
-
-    public delegate bool IsDoneDelegate();
-
-    #endregion
-
     private static readonly Lazy<uint> ourId = new Lazy<uint>(DeduceId);
     private static readonly Lazy<PlatformId> ourPlatform = new Lazy<PlatformId>(DeducePlatformId);
 
@@ -23,7 +13,7 @@ namespace JetBrains.Profiler.Api.Impl
 
     private static uint DeduceId()
     {
-#if NETCOREAPP1_0 || NETCOREAPP1_1
+#if NETCOREAPP1_0 || NETCOREAPP1_1 || NETSTANDARD1_0 || NETSTANDARD1_1 || NETSTANDARD1_2 || NETSTANDARD1_3 || NETSTANDARD1_4 || NETSTANDARD1_5 || NETSTANDARD1_6
       const ushort major = 4;
       const ushort minor = 0;
 #else
@@ -36,14 +26,9 @@ namespace JetBrains.Profiler.Api.Impl
 
     private static PlatformId DeducePlatformId()
     {
-#if NETCOREAPP || NETSTANDARD
-      if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-        return PlatformId.Windows;
-      if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-        return PlatformId.MacOsX;
-      if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-        return PlatformId.Linux;
-#else
+#if NETSTANDARD1_0
+#error No OS detection possible
+#elif NET20 || NET35 || NET40 || NET45 || NET451 || NET452 || NET46 || NET461 || NET462 || NET47
       switch (Environment.OSVersion.Platform)
       {
       case PlatformID.Unix:
@@ -51,6 +36,13 @@ namespace JetBrains.Profiler.Api.Impl
       case PlatformID.Win32NT:
         return PlatformId.Windows;
       }
+#else
+      if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        return PlatformId.Windows;
+      if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+        return PlatformId.MacOsX;
+      if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        return PlatformId.Linux;
 #endif
       throw new PlatformNotSupportedException();
     }
@@ -68,6 +60,9 @@ namespace JetBrains.Profiler.Api.Impl
       }
     }
 
+#if ENABLE_WAIT_FOR_READY
+    public delegate bool IsDoneDelegate();
+
     public static bool WaitFor(TimeSpan timeout, IsDoneDelegate isDone)
     {
       var endTime = DateTime.UtcNow + timeout;
@@ -75,9 +70,10 @@ namespace JetBrains.Profiler.Api.Impl
       {
         if (DateTime.UtcNow >= endTime)
           return false;
-        Thread.Sleep(100);
+        System.Threading.Thread.Sleep(100);
       }
       return true;
     }
+#endif
   }
 }

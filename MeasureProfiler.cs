@@ -9,23 +9,12 @@ namespace JetBrains.Profiler.Api
 {
   public static class MeasureProfiler
   {
+#if ENABLE_WAIT_FOR_READY
     public static bool WaitForReady(TimeSpan timeout)
     {
-      switch (Helper.Platform)
-      {
-      case PlatformId.Linux:
-        return Helper.WaitFor(timeout, () => LinuxHelper.IsLibCoreApiAlreadyLoaded() &&
-                                             Helper.ThrowOnError(LibCoreApi.V1_Measure_CheckActive(Helper.Id, out _)));
-      case PlatformId.MacOsX:
-        return Helper.WaitFor(timeout, () => MacOsXHelper.IsLibCoreApiAlreadyLoaded() &&
-                                             Helper.ThrowOnError(LibCoreApi.V1_Measure_CheckActive(Helper.Id, out _)));
-      case PlatformId.Windows:
-        return Helper.WaitFor(timeout, () => WindowsHelper.IsCoreApiDllAlreadyLoaded() &&
-                                             Helper.ThrowOnError(CoreApiDll.V1_Measure_CheckActive(Helper.Id, out _)));
-      default:
-        throw new PlatformNotSupportedException();
-      }
+      return Helper.WaitFor(timeout, () => (GetFeatures() & MeasureFeatures.Ready) != 0);
     }
+#endif
 
     public static MeasureFeatures GetFeatures()
     {
@@ -49,7 +38,7 @@ namespace JetBrains.Profiler.Api
       default:
         throw new PlatformNotSupportedException();
       }
-      return MeasureFeatures.None;
+      return MeasureFeatures.Inactive;
     }
 
     public static void StartCollectingData()

@@ -9,23 +9,12 @@ namespace JetBrains.Profiler.Api
 {
   public static class MemoryProfiler
   {
+#if ENABLE_WAIT_FOR_READY
     public static bool WaitForReady(TimeSpan timeout)
     {
-      switch (Helper.Platform)
-      {
-      case PlatformId.Linux:
-        return Helper.WaitFor(timeout, () => LinuxHelper.IsLibCoreApiAlreadyLoaded() &&
-                                             Helper.ThrowOnError(LibCoreApi.V1_Memory_CheckActive(Helper.Id, out _)));
-      case PlatformId.MacOsX:
-        return Helper.WaitFor(timeout, () => MacOsXHelper.IsLibCoreApiAlreadyLoaded() &&
-                                             Helper.ThrowOnError(LibCoreApi.V1_Memory_CheckActive(Helper.Id, out _)));
-      case PlatformId.Windows:
-        return Helper.WaitFor(timeout, () => WindowsHelper.IsCoreApiDllAlreadyLoaded() &&
-                                             Helper.ThrowOnError(CoreApiDll.V1_Memory_CheckActive(Helper.Id, out _)));
-      default:
-        throw new PlatformNotSupportedException();
-      }
+      return Helper.WaitFor(timeout, () => (GetFeatures() & MemoryFeatures.Ready) != 0);
     }
+#endif
 
     public static MemoryFeatures GetFeatures()
     {
@@ -49,7 +38,7 @@ namespace JetBrains.Profiler.Api
       default:
         throw new PlatformNotSupportedException();
       }
-      return MemoryFeatures.None;
+      return MemoryFeatures.Inactive;
     }
 
     public static void GetSnapshot()

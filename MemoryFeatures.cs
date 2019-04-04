@@ -7,8 +7,9 @@ namespace JetBrains.Profiler.Api
   [Flags]
   public enum MemoryFeatures : uint
   {
-    None = 0x0,
-    Detach = 0x1,
-    CollectAllocations = 0x2
+    Inactive = 0x0,
+    Ready = 0x1,
+    Detach = 0x2,
+    CollectAllocations = 0x4
   }
 }
