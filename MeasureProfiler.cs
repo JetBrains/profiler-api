@@ -3,10 +3,15 @@ using JetBrains.Profiler.Api.Impl;
 using JetBrains.Profiler.Api.Impl.Unix;
 using JetBrains.Profiler.Api.Impl.Windows;
 
+// ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable IntroduceOptionalParameters.Global
 // ReSharper disable UnusedMember.Global
 
 namespace JetBrains.Profiler.Api
 {
+  /// <summary>
+  ///   Control performance/coverage profiling session.
+  /// </summary>
   public static class MeasureProfiler
   {
 #if ENABLE_WAIT_FOR_READY
@@ -16,6 +21,10 @@ namespace JetBrains.Profiler.Api
     }
 #endif
 
+    /// <summary>
+    ///   Get a set of features currently active in the profiler.
+    /// </summary>
+    /// <returns>The set of features.</returns>
     public static MeasureFeatures GetFeatures()
     {
       switch (Helper.Platform)
@@ -38,14 +47,23 @@ namespace JetBrains.Profiler.Api
       default:
         throw new PlatformNotSupportedException();
       }
-      return MeasureFeatures.Inactive;
+      return 0;
     }
 
+    /// <summary>
+    ///   Start collecting profiling data.
+    ///   Doesn't throw any errors even if the application is run with profiling disabled.
+    /// </summary>
     public static void StartCollectingData()
     {
       StartCollectingData(null);
     }
 
+    /// <summary>
+    ///   Start collecting profiling data.
+    ///   Doesn't throw any errors even if the application is run with profiling disabled.
+    /// </summary>
+    /// <param name="groupName">The name of the collected data block.</param>
     public static void StartCollectingData(string groupName)
     {
       switch (Helper.Platform)
@@ -67,6 +85,10 @@ namespace JetBrains.Profiler.Api
       }
     }
 
+    /// <summary>
+    ///   Stop collecting profiling data. This method doesn't save the collected data block to the disk.
+    ///   Doesn't throw any errors even if the application is run with profiling disabled.
+    /// </summary>
     public static void StopCollectingData()
     {
       switch (Helper.Platform)
@@ -88,11 +110,23 @@ namespace JetBrains.Profiler.Api
       }
     }
 
+    /// <summary>
+    ///   Stop collecting data if needed and save all collected data blocks to the disk.
+    ///   Doesn't throw any errors even if the application is run with profiling disabled.
+    /// </summary>
     public static void SaveData()
     {
       SaveData(null);
     }
 
+    /// <summary>
+    ///   Stop collecting data if needed and save all collected data blocks to the disk.
+    ///   Doesn't throw any errors even if the application is run with profiling disabled.
+    /// </summary>
+    /// <param name="name">
+    ///   The name of all data blocks that were not yet saved or dropped. This is not a file name. Currently
+    ///   not used.
+    /// </param>
     public static void SaveData(string name)
     {
       switch (Helper.Platform)
@@ -114,6 +148,10 @@ namespace JetBrains.Profiler.Api
       }
     }
 
+    /// <summary>
+    ///   Stop collecting data if needed and drop all collected data blocks.
+    ///   Doesn't throw any errors even if the application is run with profiling disabled.
+    /// </summary>
     public static void DropData()
     {
       switch (Helper.Platform)

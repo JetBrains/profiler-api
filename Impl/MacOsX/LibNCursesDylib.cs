@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace JetBrains.Profiler.Api.Impl.MacOsX
 {
-  public static class LibNCursesDylib
+  internal static class LibNCursesDylib
   {
     private const string LibraryName = "/usr/lib/libncurses.dylib";
 

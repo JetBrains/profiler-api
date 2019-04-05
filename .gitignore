@@ -1,3 +1,4 @@
+*.orig
 .vs/
 .idea/
 _ReSharper.Caches/
