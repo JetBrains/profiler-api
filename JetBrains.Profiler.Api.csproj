@@ -1,20 +1,23 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.1;netstandard2.0;net20;net471</TargetFrameworks>
+    <TargetFrameworks>net20;net471;netstandard1.1;netstandard2.0</TargetFrameworks>
     <RootNamespace>JetBrains.Profiler.Api</RootNamespace>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>Subplatform.Snk</AssemblyOriginatorKeyFile>
-    <Version>1.0.18</Version>
+    <Version>1.0.19</Version>
     <Company>JetBrains s.r.o.</Company>
     <Copyright>Copyright © 2019 JetBrains s.r.o.</Copyright>
     <Authors>Mikhail Pilin</Authors>
-    <Description>JetBrains Profiler API to control performace, coverage and memory profiling.</Description>
-    <PackageProjectUrl></PackageProjectUrl>
+    <Description>JetBrains Profiler API allows you to control profiling sessions right from the code of your application. Use this API in conjunction with JetBrains dotTrace, JetBrains dotMemory, or JetBrains dotCover. This API can also be used in conjunction with JetBrains Self-Profiling API.</Description>
+    <PackageReleaseNotes>• Initial release provides all basic functionality. 
+• Detaching functionality is not yet supported.
+• Supported OSs: Windows Vista and later, macOS 10.12 Sierra and later, Linux (most desktop distributions like CentOS, Debian, Fedora, Ubuntu and derivatives)
+• Supported frameworks: .NET Framework 2.0 and later, .NET Standard 1.1 and later, .NET Core 1.0 and later, Mono 5.10 and later, Silverlight 3.0 and later</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JetBrains/profiler-api</RepositoryUrl>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <FileVersion>1.0.18.0</FileVersion>
+    <FileVersion>1.0.19.0</FileVersion>
     <PackageIconUrl>https://resources.jetbrains.com/storage/products/resharper/img/meta/ReSharper_64.png</PackageIconUrl>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
@@ -23,4 +26,7 @@
     <EmbeddedResource Remove="_ReSharper.Caches\**" />
     <None Remove="_ReSharper.Caches\**" />
   </ItemGroup>
+  <PropertyGroup>
+    <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net20' or '$(TargetFramework)' == 'net30' or '$(TargetFramework)' == 'net35'">$(MSBuildProgramFiles32)\Reference Assemblies\Microsoft\Framework\.NETFramework\v3.5\Profile\Client</FrameworkPathOverride>
+  </PropertyGroup>
 </Project>
