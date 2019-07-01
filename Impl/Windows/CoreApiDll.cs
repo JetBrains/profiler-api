@@ -23,6 +23,9 @@ namespace JetBrains.Profiler.Api.Impl.Windows
     [DllImport(LibraryName, ExactSpelling = true)]
     public static extern HResults V1_Measure_Drop(uint id);
 
+    [DllImport(LibraryName, ExactSpelling = true)]
+    public static extern HResults V1_Measure_Detach(uint id);
+
     #endregion
 
     #region Memory
@@ -38,6 +41,9 @@ namespace JetBrains.Profiler.Api.Impl.Windows
 
     [DllImport(LibraryName, ExactSpelling = true)]
     public static extern HResults V1_Memory_CollectAllocations(uint id, bool enable);
+
+    [DllImport(LibraryName, ExactSpelling = true)]
+    public static extern HResults V1_Memory_Detach(uint id);
 
     #endregion
   }

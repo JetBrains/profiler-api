@@ -14,34 +14,29 @@ namespace JetBrains.Profiler.Api
   /// </summary>
   public static class MeasureProfiler
   {
-#if ENABLE_WAIT_FOR_READY
-    public static bool WaitForReady(TimeSpan timeout)
-    {
-      return Helper.WaitFor(timeout, () => (GetFeatures() & MeasureFeatures.Ready) != 0);
-    }
-#endif
-
     /// <summary>
     ///   Get a set of features currently active in the profiler.
     /// </summary>
     /// <returns>The set of features.</returns>
     public static MeasureFeatures GetFeatures()
     {
+      var id = Helper.Id;
+      MeasureFeatures features = 0;
       switch (Helper.Platform)
       {
       case PlatformId.Linux:
         if (LinuxHelper.IsLibCoreApiAlreadyLoaded())
-          if (Helper.ThrowOnError(LibCoreApi.V1_Measure_CheckActive(Helper.Id, out var features)))
+          if (Helper.InvokeCoreApi(() => LibCoreApi.V1_Measure_CheckActive(id, out features)))
             return features;
         break;
       case PlatformId.MacOsX:
         if (MacOsXHelper.IsLibCoreApiAlreadyLoaded())
-          if (Helper.ThrowOnError(LibCoreApi.V1_Measure_CheckActive(Helper.Id, out var features)))
+          if (Helper.InvokeCoreApi(() => LibCoreApi.V1_Measure_CheckActive(id, out features)))
             return features;
         break;
       case PlatformId.Windows:
         if (WindowsHelper.IsCoreApiDllAlreadyLoaded())
-          if (Helper.ThrowOnError(CoreApiDll.V1_Measure_CheckActive(Helper.Id, out var features)))
+          if (Helper.InvokeCoreApi(() => CoreApiDll.V1_Measure_CheckActive(id, out features)))
             return features;
         break;
       default:
@@ -66,19 +61,20 @@ namespace JetBrains.Profiler.Api
     /// <param name="groupName">The name of the collected data block.</param>
     public static void StartCollectingData(string groupName)
     {
+      var id = Helper.Id;
       switch (Helper.Platform)
       {
       case PlatformId.Linux:
         if (LinuxHelper.IsLibCoreApiAlreadyLoaded())
-          Helper.ThrowOnError(LibCoreApi.V1_Measure_StartCollecting(Helper.Id, groupName));
+          Helper.InvokeCoreApi(() => LibCoreApi.V1_Measure_StartCollecting(id, groupName));
         break;
       case PlatformId.MacOsX:
         if (MacOsXHelper.IsLibCoreApiAlreadyLoaded())
-          Helper.ThrowOnError(LibCoreApi.V1_Measure_StartCollecting(Helper.Id, groupName));
+          Helper.InvokeCoreApi(() => LibCoreApi.V1_Measure_StartCollecting(id, groupName));
         break;
       case PlatformId.Windows:
         if (WindowsHelper.IsCoreApiDllAlreadyLoaded())
-          Helper.ThrowOnError(CoreApiDll.V1_Measure_StartCollecting(Helper.Id, groupName));
+          Helper.InvokeCoreApi(() => CoreApiDll.V1_Measure_StartCollecting(id, groupName));
         break;
       default:
         throw new PlatformNotSupportedException();
@@ -91,19 +87,20 @@ namespace JetBrains.Profiler.Api
     /// </summary>
     public static void StopCollectingData()
     {
+      var id = Helper.Id;
       switch (Helper.Platform)
       {
       case PlatformId.Linux:
         if (LinuxHelper.IsLibCoreApiAlreadyLoaded())
-          Helper.ThrowOnError(LibCoreApi.V1_Measure_StopCollecting(Helper.Id));
+          Helper.InvokeCoreApi(() => LibCoreApi.V1_Measure_StopCollecting(id));
         break;
       case PlatformId.MacOsX:
         if (MacOsXHelper.IsLibCoreApiAlreadyLoaded())
-          Helper.ThrowOnError(LibCoreApi.V1_Measure_StopCollecting(Helper.Id));
+          Helper.InvokeCoreApi(() => LibCoreApi.V1_Measure_StopCollecting(id));
         break;
       case PlatformId.Windows:
         if (WindowsHelper.IsCoreApiDllAlreadyLoaded())
-          Helper.ThrowOnError(CoreApiDll.V1_Measure_StopCollecting(Helper.Id));
+          Helper.InvokeCoreApi(() => CoreApiDll.V1_Measure_StopCollecting(id));
         break;
       default:
         throw new PlatformNotSupportedException();
@@ -129,19 +126,20 @@ namespace JetBrains.Profiler.Api
     /// </param>
     public static void SaveData(string name)
     {
+      var id = Helper.Id;
       switch (Helper.Platform)
       {
       case PlatformId.Linux:
         if (LinuxHelper.IsLibCoreApiAlreadyLoaded())
-          Helper.ThrowOnError(LibCoreApi.V1_Measure_Save(Helper.Id, name));
+          Helper.InvokeCoreApi(() => LibCoreApi.V1_Measure_Save(id, name));
         break;
       case PlatformId.MacOsX:
         if (MacOsXHelper.IsLibCoreApiAlreadyLoaded())
-          Helper.ThrowOnError(LibCoreApi.V1_Measure_Save(Helper.Id, name));
+          Helper.InvokeCoreApi(() => LibCoreApi.V1_Measure_Save(id, name));
         break;
       case PlatformId.Windows:
         if (WindowsHelper.IsCoreApiDllAlreadyLoaded())
-          Helper.ThrowOnError(CoreApiDll.V1_Measure_Save(Helper.Id, name));
+          Helper.InvokeCoreApi(() => CoreApiDll.V1_Measure_Save(id, name));
         break;
       default:
         throw new PlatformNotSupportedException();
@@ -154,19 +152,47 @@ namespace JetBrains.Profiler.Api
     /// </summary>
     public static void DropData()
     {
+      var id = Helper.Id;
       switch (Helper.Platform)
       {
       case PlatformId.Linux:
         if (LinuxHelper.IsLibCoreApiAlreadyLoaded())
-          Helper.ThrowOnError(LibCoreApi.V1_Measure_Drop(Helper.Id));
+          Helper.InvokeCoreApi(() => LibCoreApi.V1_Measure_Drop(id));
         break;
       case PlatformId.MacOsX:
         if (MacOsXHelper.IsLibCoreApiAlreadyLoaded())
-          Helper.ThrowOnError(LibCoreApi.V1_Measure_Drop(Helper.Id));
+          Helper.InvokeCoreApi(() => LibCoreApi.V1_Measure_Drop(id));
         break;
       case PlatformId.Windows:
         if (WindowsHelper.IsCoreApiDllAlreadyLoaded())
-          Helper.ThrowOnError(CoreApiDll.V1_Measure_Drop(Helper.Id));
+          Helper.InvokeCoreApi(() => CoreApiDll.V1_Measure_Drop(id));
+        break;
+      default:
+        throw new PlatformNotSupportedException();
+      }
+    }
+    
+    /// <summary>
+    ///   Detach the profiler from the profiled process. Does nothing if detaching is disabled in the profiler. To check
+    ///   whether the detaching is enabled, use <see cref="GetFeatures" /> with <see cref="MeasureFeatures.Detach" /> flag.
+    ///   Doesn't throw any errors even if the application is run with profiling disabled.
+    /// </summary>
+    public static void Detach()
+    {
+      var id = Helper.Id;
+      switch (Helper.Platform)
+      {
+      case PlatformId.Linux:
+        if (LinuxHelper.IsLibCoreApiAlreadyLoaded())
+          Helper.InvokeCoreApi(() => LibCoreApi.V1_Measure_Detach(id));
+        break;
+      case PlatformId.MacOsX:
+        if (MacOsXHelper.IsLibCoreApiAlreadyLoaded())
+          Helper.InvokeCoreApi(() => LibCoreApi.V1_Measure_Detach(id));
+        break;
+      case PlatformId.Windows:
+        if (WindowsHelper.IsCoreApiDllAlreadyLoaded())
+          Helper.InvokeCoreApi(() => CoreApiDll.V1_Measure_Detach(id));
         break;
       default:
         throw new PlatformNotSupportedException();

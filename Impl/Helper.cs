@@ -5,6 +5,12 @@ namespace JetBrains.Profiler.Api.Impl
 {
   internal static class Helper
   {
+    #region Delegates
+
+    public delegate HResults InvokeDelegate();
+
+    #endregion
+
     private static readonly Lazy<uint> ourId = new Lazy<uint>(DeduceId);
     private static readonly Lazy<PlatformId> ourPlatform = new Lazy<PlatformId>(DeducePlatformId);
 
@@ -47,8 +53,21 @@ namespace JetBrains.Profiler.Api.Impl
       throw new PlatformNotSupportedException();
     }
 
-    public static bool ThrowOnError(HResults hr)
+    public static bool InvokeCoreApi(InvokeDelegate invoke)
     {
+      // Note: try/catch block prevents propagating EntryPointNotFoundException in case when the user is using new methods which are absent in the native profiler library.
+      HResults hr;
+      try
+      {
+        hr = invoke();
+      }
+      catch (TypeLoadException e)
+      {
+        // Bug: System.EntryPointNotFoundException is private class in .NET Standard 1.x and .NET Core 1.x.
+        if (e.GetType().FullName == "System.EntryPointNotFoundException")
+          return false;
+        throw;
+      }
       switch (hr)
       {
       case HResults.S_OK:
@@ -59,21 +78,5 @@ namespace JetBrains.Profiler.Api.Impl
         throw new InternalProfilerException((int) hr);
       }
     }
-
-#if ENABLE_WAIT_FOR_READY
-    public delegate bool IsDoneDelegate();
-
-    public static bool WaitFor(TimeSpan timeout, IsDoneDelegate isDone)
-    {
-      var endTime = DateTime.UtcNow + timeout;
-      while (!isDone())
-      {
-        if (DateTime.UtcNow >= endTime)
-          return false;
-        System.Threading.Thread.Sleep(100);
-      }
-      return true;
-    }
-#endif
   }
 }
