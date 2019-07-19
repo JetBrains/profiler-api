@@ -7,7 +7,7 @@ namespace JetBrains.Profiler.Api.Impl.Unix
   {
     private const string LibraryName = "libc"; // Note: No extension here, because CoreCLR support that case
 
-    [DllImport(LibraryName, ExactSpelling = true)]
+    [DllImport(LibraryName)]
     public static extern int uname(IntPtr buf);
   }
 }

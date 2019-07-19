@@ -7,10 +7,10 @@ namespace JetBrains.Profiler.Api.Impl.MacOsX
   {
     private const string LibraryName = "/usr/lib/system/libdyld.dylib";
 
-    [DllImport(LibraryName, ExactSpelling = true)]
+    [DllImport(LibraryName)]
     public static extern IntPtr dlopen([MarshalAs(UnmanagedType.LPStr)] string filename, int flags);
 
-    [DllImport(LibraryName, ExactSpelling = true)]
+    [DllImport(LibraryName)]
     public static extern int dlclose(IntPtr handle);
   }
 }
