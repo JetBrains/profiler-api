@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
+// ReSharper disable InconsistentNaming
+// ReSharper disable IdentifierTypo
+
 namespace JetBrains.Profiler.Api.Impl.MacOsX
 {
   internal static class LibDyldDylib

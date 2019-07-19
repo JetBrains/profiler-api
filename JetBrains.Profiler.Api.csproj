@@ -6,7 +6,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>Subplatform.Snk</AssemblyOriginatorKeyFile>
-    <Version>1.1.1</Version>
+    <Version>1.1.2</Version>
     <Company>JetBrains s.r.o.</Company>
     <Copyright>Copyright © 2019 JetBrains s.r.o.</Copyright>
     <Authors>Mikhail Pilin</Authors>
@@ -14,10 +14,11 @@
     <PackageReleaseNotes>• Supported OSs: Windows Vista and later, macOS 10.12 Sierra and later, Linux (most desktop distributions like CentOS, Debian, Fedora, Ubuntu and derivatives)
 • Supported frameworks: .NET Framework 2.0 and later, .NET Standard 1.1 and later, .NET Core 1.0 and later, Mono 5.10 and later and later
 • The ability to detach the profiler via API
-• The API is able to detect that the profiler was attached to the application</PackageReleaseNotes>
+• The API is able to detect that the profiler was attached to the application
+• Linux and MacOsX fixes</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JetBrains/profiler-api</RepositoryUrl>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <FileVersion>1.1.1.0</FileVersion>
+    <FileVersion>1.1.2.0</FileVersion>
     <PackageIconUrl>https://resources.jetbrains.com/storage/products/resharper/img/meta/ReSharper_64.png</PackageIconUrl>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
