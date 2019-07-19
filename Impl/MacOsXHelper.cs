@@ -8,10 +8,10 @@ namespace JetBrains.Profiler.Api.Impl
   {
     public static bool IsLibCoreApiAlreadyLoaded()
     {
-      var handle = LibNCursesDylib.dlopen(LibCoreApi.LibraryName + ".dylib", (int) (DlFlags.RTLD_GLOBAL | DlFlags.RTLD_LAZY | DlFlags.RTLD_NOLOAD));
+      var handle = LibDyldDylib.dlopen(LibCoreApi.LibraryName + ".dylib", (int) (DlFlags.RTLD_GLOBAL | DlFlags.RTLD_LAZY | DlFlags.RTLD_NOLOAD));
       if (handle == IntPtr.Zero)
         return false;
-      LibNCursesDylib.dlclose(handle);
+      LibDyldDylib.dlclose(handle);
       return true;
     }
   }

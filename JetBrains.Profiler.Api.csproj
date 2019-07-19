@@ -6,7 +6,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>Subplatform.Snk</AssemblyOriginatorKeyFile>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
     <Company>JetBrains s.r.o.</Company>
     <Copyright>Copyright © 2019 JetBrains s.r.o.</Copyright>
     <Authors>Mikhail Pilin</Authors>
@@ -17,7 +17,7 @@
 • The API is able to detect that the profiler was attached to the application</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JetBrains/profiler-api</RepositoryUrl>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <FileVersion>1.1.0.0</FileVersion>
+    <FileVersion>1.1.1.0</FileVersion>
     <PackageIconUrl>https://resources.jetbrains.com/storage/products/resharper/img/meta/ReSharper_64.png</PackageIconUrl>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>

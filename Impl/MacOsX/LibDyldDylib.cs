@@ -3,9 +3,9 @@ using System.Runtime.InteropServices;
 
 namespace JetBrains.Profiler.Api.Impl.MacOsX
 {
-  internal static class LibNCursesDylib
+  internal static class LibDyldDylib
   {
-    private const string LibraryName = "/usr/lib/libncurses.dylib";
+    private const string LibraryName = "/usr/lib/system/libdyld.dylib";
 
     [DllImport(LibraryName, ExactSpelling = true)]
     public static extern IntPtr dlopen([MarshalAs(UnmanagedType.LPStr)] string filename, int flags);
