@@ -12,7 +12,7 @@
     <Authors>Mikhail Pilin</Authors>
     <Description>JetBrains Profiler API allows you to control profiling sessions right from the code of your application. Use this API in conjunction with JetBrains dotTrace, JetBrains dotMemory, or JetBrains dotCover. This API can also be used in conjunction with JetBrains Self-Profiling API.</Description>
     <PackageReleaseNotes>• Supported OSs: Windows Vista and later, macOS 10.12 Sierra and later, Linux (most desktop distributions like CentOS, Debian, Fedora, Ubuntu and derivatives)
-• Supported frameworks: .NET Framework 2.0 and later, .NET Standard 1.1 and later, .NET Core 1.0 and later, Mono 5.10 and later and later
+• Supported frameworks: .NET Framework 2.0 and later, .NET Standard 1.1 and later, .NET Core 1.0 and later, Mono 5.10 and later
 • The ability to detach the profiler via API
 • The API is able to detect that the profiler was attached to the application
 • Linux and MacOsX fixes</PackageReleaseNotes>
