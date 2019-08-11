@@ -1,6 +1,7 @@
 ﻿using System;
 using JetBrains.Profiler.Api.Impl;
-using JetBrains.Profiler.Api.Impl.Unix;
+using JetBrains.Profiler.Api.Impl.Linux;
+using JetBrains.Profiler.Api.Impl.MacOsX;
 using JetBrains.Profiler.Api.Impl.Windows;
 
 // ReSharper disable MemberCanBePrivate.Global
@@ -26,12 +27,12 @@ namespace JetBrains.Profiler.Api
       {
       case PlatformId.Linux:
         if (LinuxHelper.IsLibCoreApiAlreadyLoaded())
-          if (Helper.InvokeCoreApi(() => LibCoreApi.V1_Measure_CheckActive(id, out features)))
+          if (Helper.InvokeCoreApi(() => LibCoreApiSo.V1_Measure_CheckActive(id, out features)))
             return features;
         break;
       case PlatformId.MacOsX:
         if (MacOsXHelper.IsLibCoreApiAlreadyLoaded())
-          if (Helper.InvokeCoreApi(() => LibCoreApi.V1_Measure_CheckActive(id, out features)))
+          if (Helper.InvokeCoreApi(() => LibCoreApiDylib.V1_Measure_CheckActive(id, out features)))
             return features;
         break;
       case PlatformId.Windows:
@@ -66,11 +67,11 @@ namespace JetBrains.Profiler.Api
       {
       case PlatformId.Linux:
         if (LinuxHelper.IsLibCoreApiAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApi.V1_Measure_StartCollecting(id, groupName));
+          Helper.InvokeCoreApi(() => LibCoreApiSo.V1_Measure_StartCollecting(id, groupName));
         break;
       case PlatformId.MacOsX:
         if (MacOsXHelper.IsLibCoreApiAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApi.V1_Measure_StartCollecting(id, groupName));
+          Helper.InvokeCoreApi(() => LibCoreApiDylib.V1_Measure_StartCollecting(id, groupName));
         break;
       case PlatformId.Windows:
         if (WindowsHelper.IsCoreApiDllAlreadyLoaded())
@@ -92,11 +93,11 @@ namespace JetBrains.Profiler.Api
       {
       case PlatformId.Linux:
         if (LinuxHelper.IsLibCoreApiAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApi.V1_Measure_StopCollecting(id));
+          Helper.InvokeCoreApi(() => LibCoreApiSo.V1_Measure_StopCollecting(id));
         break;
       case PlatformId.MacOsX:
         if (MacOsXHelper.IsLibCoreApiAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApi.V1_Measure_StopCollecting(id));
+          Helper.InvokeCoreApi(() => LibCoreApiDylib.V1_Measure_StopCollecting(id));
         break;
       case PlatformId.Windows:
         if (WindowsHelper.IsCoreApiDllAlreadyLoaded())
@@ -131,11 +132,11 @@ namespace JetBrains.Profiler.Api
       {
       case PlatformId.Linux:
         if (LinuxHelper.IsLibCoreApiAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApi.V1_Measure_Save(id, name));
+          Helper.InvokeCoreApi(() => LibCoreApiSo.V1_Measure_Save(id, name));
         break;
       case PlatformId.MacOsX:
         if (MacOsXHelper.IsLibCoreApiAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApi.V1_Measure_Save(id, name));
+          Helper.InvokeCoreApi(() => LibCoreApiDylib.V1_Measure_Save(id, name));
         break;
       case PlatformId.Windows:
         if (WindowsHelper.IsCoreApiDllAlreadyLoaded())
@@ -157,11 +158,11 @@ namespace JetBrains.Profiler.Api
       {
       case PlatformId.Linux:
         if (LinuxHelper.IsLibCoreApiAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApi.V1_Measure_Drop(id));
+          Helper.InvokeCoreApi(() => LibCoreApiSo.V1_Measure_Drop(id));
         break;
       case PlatformId.MacOsX:
         if (MacOsXHelper.IsLibCoreApiAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApi.V1_Measure_Drop(id));
+          Helper.InvokeCoreApi(() => LibCoreApiDylib.V1_Measure_Drop(id));
         break;
       case PlatformId.Windows:
         if (WindowsHelper.IsCoreApiDllAlreadyLoaded())
@@ -171,7 +172,7 @@ namespace JetBrains.Profiler.Api
         throw new PlatformNotSupportedException();
       }
     }
-    
+
     /// <summary>
     ///   Detach the profiler from the profiled process. Does nothing if detaching is disabled in the profiler. To check
     ///   whether the detaching is enabled, use <see cref="GetFeatures" /> with <see cref="MeasureFeatures.Detach" /> flag.
@@ -184,11 +185,11 @@ namespace JetBrains.Profiler.Api
       {
       case PlatformId.Linux:
         if (LinuxHelper.IsLibCoreApiAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApi.V1_Measure_Detach(id));
+          Helper.InvokeCoreApi(() => LibCoreApiSo.V1_Measure_Detach(id));
         break;
       case PlatformId.MacOsX:
         if (MacOsXHelper.IsLibCoreApiAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApi.V1_Measure_Detach(id));
+          Helper.InvokeCoreApi(() => LibCoreApiDylib.V1_Measure_Detach(id));
         break;
       case PlatformId.Windows:
         if (WindowsHelper.IsCoreApiDllAlreadyLoaded())

@@ -1,6 +1,5 @@
 ﻿using System;
 using JetBrains.Profiler.Api.Impl.Linux;
-using JetBrains.Profiler.Api.Impl.Unix;
 
 namespace JetBrains.Profiler.Api.Impl
 {
@@ -8,7 +7,7 @@ namespace JetBrains.Profiler.Api.Impl
   {
     public static bool IsLibCoreApiAlreadyLoaded()
     {
-      var handle = LibDlSo2.dlopen(LibCoreApi.LibraryName + ".so", (int) (RTLD.RTLD_GLOBAL | RTLD.RTLD_LAZY | RTLD.RTLD_NOLOAD));
+      var handle = LibDlSo2.dlopen(LibCoreApiSo.LibraryName, (int) (RTLD.RTLD_GLOBAL | RTLD.RTLD_LAZY | RTLD.RTLD_NOLOAD));
       if (handle == IntPtr.Zero)
         return false;
       LibDlSo2.dlclose(handle);

@@ -1,6 +1,7 @@
 ﻿using System;
 using JetBrains.Profiler.Api.Impl;
-using JetBrains.Profiler.Api.Impl.Unix;
+using JetBrains.Profiler.Api.Impl.Linux;
+using JetBrains.Profiler.Api.Impl.MacOsX;
 using JetBrains.Profiler.Api.Impl.Windows;
 
 // ReSharper disable MemberCanBePrivate.Global
@@ -26,12 +27,12 @@ namespace JetBrains.Profiler.Api
       {
       case PlatformId.Linux:
         if (LinuxHelper.IsLibCoreApiAlreadyLoaded())
-          if (Helper.InvokeCoreApi(() => LibCoreApi.V1_Memory_CheckActive(id, out features)))
+          if (Helper.InvokeCoreApi(() => LibCoreApiSo.V1_Memory_CheckActive(id, out features)))
             return features;
         break;
       case PlatformId.MacOsX:
         if (MacOsXHelper.IsLibCoreApiAlreadyLoaded())
-          if (Helper.InvokeCoreApi(() => LibCoreApi.V1_Memory_CheckActive(id, out features)))
+          if (Helper.InvokeCoreApi(() => LibCoreApiDylib.V1_Memory_CheckActive(id, out features)))
             return features;
         break;
       case PlatformId.Windows:
@@ -66,11 +67,11 @@ namespace JetBrains.Profiler.Api
       {
       case PlatformId.Linux:
         if (LinuxHelper.IsLibCoreApiAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApi.V1_Memory_GetSnapshot(id, name));
+          Helper.InvokeCoreApi(() => LibCoreApiSo.V1_Memory_GetSnapshot(id, name));
         break;
       case PlatformId.MacOsX:
         if (MacOsXHelper.IsLibCoreApiAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApi.V1_Memory_GetSnapshot(id, name));
+          Helper.InvokeCoreApi(() => LibCoreApiDylib.V1_Memory_GetSnapshot(id, name));
         break;
       case PlatformId.Windows:
         if (WindowsHelper.IsCoreApiDllAlreadyLoaded())
@@ -92,11 +93,11 @@ namespace JetBrains.Profiler.Api
       {
       case PlatformId.Linux:
         if (LinuxHelper.IsLibCoreApiAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApi.V1_Memory_ForceGc(id));
+          Helper.InvokeCoreApi(() => LibCoreApiSo.V1_Memory_ForceGc(id));
         break;
       case PlatformId.MacOsX:
         if (MacOsXHelper.IsLibCoreApiAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApi.V1_Memory_ForceGc(id));
+          Helper.InvokeCoreApi(() => LibCoreApiDylib.V1_Memory_ForceGc(id));
         break;
       case PlatformId.Windows:
         if (WindowsHelper.IsCoreApiDllAlreadyLoaded())
@@ -120,11 +121,11 @@ namespace JetBrains.Profiler.Api
       {
       case PlatformId.Linux:
         if (LinuxHelper.IsLibCoreApiAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApi.V1_Memory_CollectAllocations(id, enable));
+          Helper.InvokeCoreApi(() => LibCoreApiSo.V1_Memory_CollectAllocations(id, enable));
         break;
       case PlatformId.MacOsX:
         if (MacOsXHelper.IsLibCoreApiAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApi.V1_Memory_CollectAllocations(id, enable));
+          Helper.InvokeCoreApi(() => LibCoreApiDylib.V1_Memory_CollectAllocations(id, enable));
         break;
       case PlatformId.Windows:
         if (WindowsHelper.IsCoreApiDllAlreadyLoaded())
@@ -147,11 +148,11 @@ namespace JetBrains.Profiler.Api
       {
       case PlatformId.Linux:
         if (LinuxHelper.IsLibCoreApiAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApi.V1_Memory_Detach(id));
+          Helper.InvokeCoreApi(() => LibCoreApiSo.V1_Memory_Detach(id));
         break;
       case PlatformId.MacOsX:
         if (MacOsXHelper.IsLibCoreApiAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApi.V1_Memory_Detach(id));
+          Helper.InvokeCoreApi(() => LibCoreApiDylib.V1_Memory_Detach(id));
         break;
       case PlatformId.Windows:
         if (WindowsHelper.IsCoreApiDllAlreadyLoaded())

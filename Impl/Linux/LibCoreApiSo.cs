@@ -1,10 +1,10 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace JetBrains.Profiler.Api.Impl.Unix
+namespace JetBrains.Profiler.Api.Impl.Linux
 {
-  internal static class LibCoreApi
+  internal static class LibCoreApiSo
   {
-    public const string LibraryName = "libJetBrains.Profiler.CoreApi"; // Note: No extension here, because should works on Linux and MacOsX
+    public const string LibraryName = "libJetBrains.Profiler.CoreApi.so";
 
     #region Measure
 
