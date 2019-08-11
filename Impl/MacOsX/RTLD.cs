@@ -1,15 +1,12 @@
-﻿using System;
-
-// ReSharper disable InconsistentNaming
+﻿// ReSharper disable InconsistentNaming
 // ReSharper disable IdentifierTypo
 
 namespace JetBrains.Profiler.Api.Impl.MacOsX
 {
-  [Flags]
-  internal enum RTLD
+  internal static class RTLD
   {
-    RTLD_LAZY = 0x1,
-    RTLD_GLOBAL = 0x8,
-    RTLD_NOLOAD = 0x10
+    public const int RTLD_LAZY = 0x1;
+    public const int RTLD_GLOBAL = 0x8;
+    public const int RTLD_NOLOAD = 0x10;
   }
 }
