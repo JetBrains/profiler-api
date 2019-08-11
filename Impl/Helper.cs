@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace JetBrains.Profiler.Api.Impl
 {
-  internal static class Helper
+  internal static partial class Helper
   {
     #region Delegates
 
@@ -38,7 +38,7 @@ namespace JetBrains.Profiler.Api.Impl
       switch (Environment.OSVersion.Platform)
       {
       case PlatformID.Unix:
-        return UnixHelper.IsMacOsX ? PlatformId.MacOsX : PlatformId.Linux;
+        return IsMacOsX ? PlatformId.MacOsX : PlatformId.Linux;
       case PlatformID.Win32NT:
         return PlatformId.Windows;
       }

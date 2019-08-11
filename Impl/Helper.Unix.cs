@@ -4,11 +4,11 @@ using JetBrains.Profiler.Api.Impl.Unix;
 
 namespace JetBrains.Profiler.Api.Impl
 {
-  internal static class UnixHelper
+  internal static partial class Helper
   {
     private static readonly Lazy<bool> ourIsMacOsX = new Lazy<bool>(DeduceIsMacOsX);
 
-    public static bool IsMacOsX => ourIsMacOsX.Value;
+    private static bool IsMacOsX => ourIsMacOsX.Value;
 
     private static string GetSysnameFromUname()
     {

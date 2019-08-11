@@ -26,17 +26,17 @@ namespace JetBrains.Profiler.Api
       switch (Helper.Platform)
       {
       case PlatformId.Linux:
-        if (LinuxHelper.IsLibCoreApiAlreadyLoaded())
+        if (Helper.IsLibCoreApiSoAlreadyLoaded())
           if (Helper.InvokeCoreApi(() => LibCoreApiSo.V1_Memory_CheckActive(id, out features)))
             return features;
         break;
       case PlatformId.MacOsX:
-        if (MacOsXHelper.IsLibCoreApiAlreadyLoaded())
+        if (Helper.IsLibCoreApiDylibAlreadyLoaded())
           if (Helper.InvokeCoreApi(() => LibCoreApiDylib.V1_Memory_CheckActive(id, out features)))
             return features;
         break;
       case PlatformId.Windows:
-        if (WindowsHelper.IsCoreApiDllAlreadyLoaded())
+        if (Helper.IsCoreApiDllAlreadyLoaded())
           if (Helper.InvokeCoreApi(() => CoreApiDll.V1_Memory_CheckActive(id, out features)))
             return features;
         break;
@@ -66,15 +66,15 @@ namespace JetBrains.Profiler.Api
       switch (Helper.Platform)
       {
       case PlatformId.Linux:
-        if (LinuxHelper.IsLibCoreApiAlreadyLoaded())
+        if (Helper.IsLibCoreApiSoAlreadyLoaded())
           Helper.InvokeCoreApi(() => LibCoreApiSo.V1_Memory_GetSnapshot(id, name));
         break;
       case PlatformId.MacOsX:
-        if (MacOsXHelper.IsLibCoreApiAlreadyLoaded())
+        if (Helper.IsLibCoreApiDylibAlreadyLoaded())
           Helper.InvokeCoreApi(() => LibCoreApiDylib.V1_Memory_GetSnapshot(id, name));
         break;
       case PlatformId.Windows:
-        if (WindowsHelper.IsCoreApiDllAlreadyLoaded())
+        if (Helper.IsCoreApiDllAlreadyLoaded())
           Helper.InvokeCoreApi(() => CoreApiDll.V1_Memory_GetSnapshot(id, name));
         break;
       default:
@@ -92,15 +92,15 @@ namespace JetBrains.Profiler.Api
       switch (Helper.Platform)
       {
       case PlatformId.Linux:
-        if (LinuxHelper.IsLibCoreApiAlreadyLoaded())
+        if (Helper.IsLibCoreApiSoAlreadyLoaded())
           Helper.InvokeCoreApi(() => LibCoreApiSo.V1_Memory_ForceGc(id));
         break;
       case PlatformId.MacOsX:
-        if (MacOsXHelper.IsLibCoreApiAlreadyLoaded())
+        if (Helper.IsLibCoreApiDylibAlreadyLoaded())
           Helper.InvokeCoreApi(() => LibCoreApiDylib.V1_Memory_ForceGc(id));
         break;
       case PlatformId.Windows:
-        if (WindowsHelper.IsCoreApiDllAlreadyLoaded())
+        if (Helper.IsCoreApiDllAlreadyLoaded())
           Helper.InvokeCoreApi(() => CoreApiDll.V1_Memory_ForceGc(id));
         break;
       default:
@@ -120,15 +120,15 @@ namespace JetBrains.Profiler.Api
       switch (Helper.Platform)
       {
       case PlatformId.Linux:
-        if (LinuxHelper.IsLibCoreApiAlreadyLoaded())
+        if (Helper.IsLibCoreApiSoAlreadyLoaded())
           Helper.InvokeCoreApi(() => LibCoreApiSo.V1_Memory_CollectAllocations(id, enable));
         break;
       case PlatformId.MacOsX:
-        if (MacOsXHelper.IsLibCoreApiAlreadyLoaded())
+        if (Helper.IsLibCoreApiDylibAlreadyLoaded())
           Helper.InvokeCoreApi(() => LibCoreApiDylib.V1_Memory_CollectAllocations(id, enable));
         break;
       case PlatformId.Windows:
-        if (WindowsHelper.IsCoreApiDllAlreadyLoaded())
+        if (Helper.IsCoreApiDllAlreadyLoaded())
           Helper.InvokeCoreApi(() => CoreApiDll.V1_Memory_CollectAllocations(id, enable));
         break;
       default:
@@ -147,15 +147,15 @@ namespace JetBrains.Profiler.Api
       switch (Helper.Platform)
       {
       case PlatformId.Linux:
-        if (LinuxHelper.IsLibCoreApiAlreadyLoaded())
+        if (Helper.IsLibCoreApiSoAlreadyLoaded())
           Helper.InvokeCoreApi(() => LibCoreApiSo.V1_Memory_Detach(id));
         break;
       case PlatformId.MacOsX:
-        if (MacOsXHelper.IsLibCoreApiAlreadyLoaded())
+        if (Helper.IsLibCoreApiDylibAlreadyLoaded())
           Helper.InvokeCoreApi(() => LibCoreApiDylib.V1_Memory_Detach(id));
         break;
       case PlatformId.Windows:
-        if (WindowsHelper.IsCoreApiDllAlreadyLoaded())
+        if (Helper.IsCoreApiDllAlreadyLoaded())
           Helper.InvokeCoreApi(() => CoreApiDll.V1_Memory_Detach(id));
         break;
       default:
