@@ -6,7 +6,8 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>Subplatform.Snk</AssemblyOriginatorKeyFile>
-    <Version>1.1.3</Version>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <Company>JetBrains s.r.o.</Company>
     <Copyright>Copyright © 2019 JetBrains s.r.o.</Copyright>
     <Authors>Mikhail Pilin</Authors>
@@ -17,14 +18,12 @@
 • The API is able to detect that the profiler was attached to the application
 • Linux and MacOsX fixes</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JetBrains/profiler-api</RepositoryUrl>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageIconUrl>https://resources.jetbrains.com/storage/products/resharper/img/meta/ReSharper_64.png</PackageIconUrl>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageIcon>icon.png</PackageIcon>
+    <Version>1.1.3</Version>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="_ReSharper.Caches\**" />
-    <EmbeddedResource Remove="_ReSharper.Caches\**" />
-    <None Remove="_ReSharper.Caches\**" />
+    <None Include="icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
   <PropertyGroup>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net20' or '$(TargetFramework)' == 'net30' or '$(TargetFramework)' == 'net35'">$(MSBuildProgramFiles32)\Reference Assemblies\Microsoft\Framework\.NETFramework\v3.5\Profile\Client</FrameworkPathOverride>
