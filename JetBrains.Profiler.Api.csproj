@@ -21,6 +21,7 @@
     <PackageProjectUrl>https://www.jetbrains.com/help/profiler/Profiling_Guidelines__Advanced_Profiling_Using_dotTrace_API.html</PackageProjectUrl>
     <PackageIconUrl>https://resources.jetbrains.com/storage/products/resharper/img/meta/ProfilerApi_128.png</PackageIconUrl>
     <PackageIcon>icon.png</PackageIcon>
+    <PackageTags>jetbrains profiler profiling performance memory coverage net dotnet netcore dotnetcore netstandard windows uwp macos mac linux</PackageTags>
     <Version>1.1.4</Version>
   </PropertyGroup>
   <ItemGroup>
