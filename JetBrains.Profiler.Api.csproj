@@ -9,7 +9,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <Company>JetBrains s.r.o.</Company>
-    <Copyright>Copyright © 2019 JetBrains s.r.o.</Copyright>
+    <Copyright>Copyright © 2019-2020 JetBrains s.r.o.</Copyright>
     <Authors>Mikhail Pilin</Authors>
     <Description>JetBrains Profiler API allows you to control profiling sessions right from the code of your application. Use this API in conjunction with JetBrains dotTrace, JetBrains dotMemory, or JetBrains dotCover. This API can also be used in conjunction with JetBrains Self-Profiling API.</Description>
     <PackageReleaseNotes>• Supported OSs: Windows Vista and later, macOS 10.12 Sierra and later, Linux (most desktop distributions like CentOS, Debian, Fedora, Ubuntu and derivatives)
@@ -18,9 +18,9 @@
 • The API is able to detect that the profiler was attached to the application
 • Linux and MacOsX fixes</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JetBrains/profiler-api</RepositoryUrl>
-    <PackageIconUrl>https://resources.jetbrains.com/storage/products/resharper/img/meta/ReSharper_64.png</PackageIconUrl>
+    <PackageIconUrl>https://resources.jetbrains.com/storage/products/resharper/img/meta/ProfilerApi_128.png</PackageIconUrl>
     <PackageIcon>icon.png</PackageIcon>
-    <Version>1.1.3</Version>
+    <Version>1.1.4</Version>
   </PropertyGroup>
   <ItemGroup>
     <None Include="icon.png" Pack="true" PackagePath="\" />
