@@ -16,13 +16,13 @@
 • Supported frameworks: .NET Framework 2.0 and later, .NET Standard 1.1 and later, .NET Core 1.0 and later, Mono 5.10 and later
 • The ability to detach the profiler via API
 • The API is able to detect that the profiler was attached to the application
-• Linux and MacOsX fixes</PackageReleaseNotes>
+• Significantly reduced memory consumption</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JetBrains/profiler-api</RepositoryUrl>
     <PackageProjectUrl>https://www.jetbrains.com/help/profiler/Profiling_Guidelines__Advanced_Profiling_Using_dotTrace_API.html</PackageProjectUrl>
     <PackageIconUrl>https://resources.jetbrains.com/storage/products/resharper/img/icons/ProfilerApi_128.png</PackageIconUrl>
     <PackageIcon>icon.png</PackageIcon>
     <PackageTags>jetbrains profiler profiling performance memory coverage net dotnet netcore dotnetcore netstandard windows uwp macos mac linux</PackageTags>
-    <Version>1.1.5</Version>
+    <Version>1.1.6</Version>
   </PropertyGroup>
   <ItemGroup>
     <None Include="icon.png" Pack="true" PackagePath="\" />

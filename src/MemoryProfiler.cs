@@ -21,27 +21,35 @@ namespace JetBrains.Profiler.Api
     /// <returns>The set of features.</returns>
     public static MemoryFeatures GetFeatures()
     {
-      var id = Helper.Id;
-      MemoryFeatures features = 0;
-      switch (Helper.Platform)
+      try
       {
-      case PlatformId.Linux:
-        if (Helper.IsLibCoreApiSoAlreadyLoaded())
-          if (Helper.InvokeCoreApi(() => LibCoreApiSo.V1_Memory_CheckActive(id, out features)))
-            return features;
-        break;
-      case PlatformId.MacOsX:
-        if (Helper.IsLibCoreApiDylibAlreadyLoaded())
-          if (Helper.InvokeCoreApi(() => LibCoreApiDylib.V1_Memory_CheckActive(id, out features)))
-            return features;
-        break;
-      case PlatformId.Windows:
-        if (Helper.IsCoreApiDllAlreadyLoaded())
-          if (Helper.InvokeCoreApi(() => CoreApiDll.V1_Memory_CheckActive(id, out features)))
-            return features;
-        break;
-      default:
-        throw new PlatformNotSupportedException();
+        switch (Helper.Platform)
+        {
+        case PlatformId.Linux:
+          if (Helper.IsLibCoreApiSoAlreadyLoaded())
+            if (Helper.ThrowIfFail(LibCoreApiSo.V1_Memory_CheckActive(Helper.Id, out var features)))
+              return features;
+          break;
+        case PlatformId.MacOsX:
+          if (Helper.IsLibCoreApiDylibAlreadyLoaded())
+            if (Helper.ThrowIfFail(LibCoreApiDylib.V1_Memory_CheckActive(Helper.Id, out var features)))
+              return features;
+          break;
+        case PlatformId.Windows:
+          if (Helper.IsCoreApiDllAlreadyLoaded())
+            if (Helper.ThrowIfFail(CoreApiDll.V1_Memory_CheckActive(Helper.Id, out var features)))
+              return features;
+          break;
+        default:
+          throw new PlatformNotSupportedException();
+        }
+      }
+#if NETCOREAPP1_0 || NETCOREAPP1_1 || NETSTANDARD1_0 || NETSTANDARD1_1 || NETSTANDARD1_2 || NETSTANDARD1_3 || NETSTANDARD1_4 || NETSTANDARD1_5 || NETSTANDARD1_6
+      catch (TypeLoadException e) when (Helper.IsEntryPointNotFoundException(e))
+#else
+      catch (EntryPointNotFoundException)
+#endif
+      {
       }
       return 0;
     }
@@ -62,23 +70,32 @@ namespace JetBrains.Profiler.Api
     /// <param name="name">The name of the memory snapshot. This is not a file name. Currently not used.</param>
     public static void GetSnapshot(string name)
     {
-      var id = Helper.Id;
-      switch (Helper.Platform)
+      try
       {
-      case PlatformId.Linux:
-        if (Helper.IsLibCoreApiSoAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApiSo.V1_Memory_GetSnapshot(id, name));
-        break;
-      case PlatformId.MacOsX:
-        if (Helper.IsLibCoreApiDylibAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApiDylib.V1_Memory_GetSnapshot(id, name));
-        break;
-      case PlatformId.Windows:
-        if (Helper.IsCoreApiDllAlreadyLoaded())
-          Helper.InvokeCoreApi(() => CoreApiDll.V1_Memory_GetSnapshot(id, name));
-        break;
-      default:
-        throw new PlatformNotSupportedException();
+        switch (Helper.Platform)
+        {
+        case PlatformId.Linux:
+          if (Helper.IsLibCoreApiSoAlreadyLoaded())
+            Helper.ThrowIfFail(LibCoreApiSo.V1_Memory_GetSnapshot(Helper.Id, name));
+          break;
+        case PlatformId.MacOsX:
+          if (Helper.IsLibCoreApiDylibAlreadyLoaded())
+            Helper.ThrowIfFail(LibCoreApiDylib.V1_Memory_GetSnapshot(Helper.Id, name));
+          break;
+        case PlatformId.Windows:
+          if (Helper.IsCoreApiDllAlreadyLoaded())
+            Helper.ThrowIfFail(CoreApiDll.V1_Memory_GetSnapshot(Helper.Id, name));
+          break;
+        default:
+          throw new PlatformNotSupportedException();
+        }
+      }
+#if NETCOREAPP1_0 || NETCOREAPP1_1 || NETSTANDARD1_0 || NETSTANDARD1_1 || NETSTANDARD1_2 || NETSTANDARD1_3 || NETSTANDARD1_4 || NETSTANDARD1_5 || NETSTANDARD1_6
+      catch (TypeLoadException e) when (Helper.IsEntryPointNotFoundException(e))
+#else
+      catch (EntryPointNotFoundException)
+#endif
+      {
       }
     }
 
@@ -88,23 +105,32 @@ namespace JetBrains.Profiler.Api
     /// </summary>
     public static void ForceGc()
     {
-      var id = Helper.Id;
-      switch (Helper.Platform)
+      try
       {
-      case PlatformId.Linux:
-        if (Helper.IsLibCoreApiSoAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApiSo.V1_Memory_ForceGc(id));
-        break;
-      case PlatformId.MacOsX:
-        if (Helper.IsLibCoreApiDylibAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApiDylib.V1_Memory_ForceGc(id));
-        break;
-      case PlatformId.Windows:
-        if (Helper.IsCoreApiDllAlreadyLoaded())
-          Helper.InvokeCoreApi(() => CoreApiDll.V1_Memory_ForceGc(id));
-        break;
-      default:
-        throw new PlatformNotSupportedException();
+        switch (Helper.Platform)
+        {
+        case PlatformId.Linux:
+          if (Helper.IsLibCoreApiSoAlreadyLoaded())
+            Helper.ThrowIfFail(LibCoreApiSo.V1_Memory_ForceGc(Helper.Id));
+          break;
+        case PlatformId.MacOsX:
+          if (Helper.IsLibCoreApiDylibAlreadyLoaded())
+            Helper.ThrowIfFail(LibCoreApiDylib.V1_Memory_ForceGc(Helper.Id));
+          break;
+        case PlatformId.Windows:
+          if (Helper.IsCoreApiDllAlreadyLoaded())
+            Helper.ThrowIfFail(CoreApiDll.V1_Memory_ForceGc(Helper.Id));
+          break;
+        default:
+          throw new PlatformNotSupportedException();
+        }
+      }
+#if NETCOREAPP1_0 || NETCOREAPP1_1 || NETSTANDARD1_0 || NETSTANDARD1_1 || NETSTANDARD1_2 || NETSTANDARD1_3 || NETSTANDARD1_4 || NETSTANDARD1_5 || NETSTANDARD1_6
+      catch (TypeLoadException e) when (Helper.IsEntryPointNotFoundException(e))
+#else
+      catch (EntryPointNotFoundException)
+#endif
+      {
       }
     }
 
@@ -116,26 +142,35 @@ namespace JetBrains.Profiler.Api
     /// </summary>
     public static void CollectAllocations(bool enable)
     {
-      var id = Helper.Id;
-      switch (Helper.Platform)
+      try
       {
-      case PlatformId.Linux:
-        if (Helper.IsLibCoreApiSoAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApiSo.V1_Memory_CollectAllocations(id, enable));
-        break;
-      case PlatformId.MacOsX:
-        if (Helper.IsLibCoreApiDylibAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApiDylib.V1_Memory_CollectAllocations(id, enable));
-        break;
-      case PlatformId.Windows:
-        if (Helper.IsCoreApiDllAlreadyLoaded())
-          Helper.InvokeCoreApi(() => CoreApiDll.V1_Memory_CollectAllocations(id, enable));
-        break;
-      default:
-        throw new PlatformNotSupportedException();
+        switch (Helper.Platform)
+        {
+        case PlatformId.Linux:
+          if (Helper.IsLibCoreApiSoAlreadyLoaded())
+            Helper.ThrowIfFail(LibCoreApiSo.V1_Memory_CollectAllocations(Helper.Id, enable));
+          break;
+        case PlatformId.MacOsX:
+          if (Helper.IsLibCoreApiDylibAlreadyLoaded())
+            Helper.ThrowIfFail(LibCoreApiDylib.V1_Memory_CollectAllocations(Helper.Id, enable));
+          break;
+        case PlatformId.Windows:
+          if (Helper.IsCoreApiDllAlreadyLoaded())
+            Helper.ThrowIfFail(CoreApiDll.V1_Memory_CollectAllocations(Helper.Id, enable));
+          break;
+        default:
+          throw new PlatformNotSupportedException();
+        }
+      }
+#if NETCOREAPP1_0 || NETCOREAPP1_1 || NETSTANDARD1_0 || NETSTANDARD1_1 || NETSTANDARD1_2 || NETSTANDARD1_3 || NETSTANDARD1_4 || NETSTANDARD1_5 || NETSTANDARD1_6
+      catch (TypeLoadException e) when (Helper.IsEntryPointNotFoundException(e))
+#else
+      catch (EntryPointNotFoundException)
+#endif
+      {
       }
     }
-    
+
     /// <summary>
     ///   Detach the profiler from the profiled process. Does nothing if detaching is disabled in the profiler. To check
     ///   whether the detaching is enabled, use <see cref="GetFeatures" /> with <see cref="MemoryFeatures.Detach" /> flag.
@@ -143,23 +178,32 @@ namespace JetBrains.Profiler.Api
     /// </summary>
     public static void Detach()
     {
-      var id = Helper.Id;
-      switch (Helper.Platform)
+      try
       {
-      case PlatformId.Linux:
-        if (Helper.IsLibCoreApiSoAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApiSo.V1_Memory_Detach(id));
-        break;
-      case PlatformId.MacOsX:
-        if (Helper.IsLibCoreApiDylibAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApiDylib.V1_Memory_Detach(id));
-        break;
-      case PlatformId.Windows:
-        if (Helper.IsCoreApiDllAlreadyLoaded())
-          Helper.InvokeCoreApi(() => CoreApiDll.V1_Memory_Detach(id));
-        break;
-      default:
-        throw new PlatformNotSupportedException();
+        switch (Helper.Platform)
+        {
+        case PlatformId.Linux:
+          if (Helper.IsLibCoreApiSoAlreadyLoaded())
+            Helper.ThrowIfFail(LibCoreApiSo.V1_Memory_Detach(Helper.Id));
+          break;
+        case PlatformId.MacOsX:
+          if (Helper.IsLibCoreApiDylibAlreadyLoaded())
+            Helper.ThrowIfFail(LibCoreApiDylib.V1_Memory_Detach(Helper.Id));
+          break;
+        case PlatformId.Windows:
+          if (Helper.IsCoreApiDllAlreadyLoaded())
+            Helper.ThrowIfFail(CoreApiDll.V1_Memory_Detach(Helper.Id));
+          break;
+        default:
+          throw new PlatformNotSupportedException();
+        }
+      }
+#if NETCOREAPP1_0 || NETCOREAPP1_1 || NETSTANDARD1_0 || NETSTANDARD1_1 || NETSTANDARD1_2 || NETSTANDARD1_3 || NETSTANDARD1_4 || NETSTANDARD1_5 || NETSTANDARD1_6
+      catch (TypeLoadException e) when (Helper.IsEntryPointNotFoundException(e))
+#else
+      catch (EntryPointNotFoundException)
+#endif
+      {
       }
     }
   }

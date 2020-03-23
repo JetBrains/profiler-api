@@ -14,7 +14,7 @@ namespace JetBrains.Profiler.Api
     ///   Indicates whether the profiler is ready to work. You need to check this flag only in case you attach the
     ///   profiler to the current process: the flag will be set once the profiler is ready to accept your commands. If
     ///   you start a process under profiling, this flag is always set. After you detach the profiler from the process,
-    ///   the flag is cleared. 
+    ///   the flag is cleared.
     /// </summary>
     Ready = 0x1,
 

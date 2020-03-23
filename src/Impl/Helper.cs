@@ -5,12 +5,6 @@ namespace JetBrains.Profiler.Api.Impl
 {
   internal static partial class Helper
   {
-    #region Delegates
-
-    public delegate HResults InvokeDelegate();
-
-    #endregion
-
     private static readonly Lazy<uint> ourId = new Lazy<uint>(DeduceId);
     private static readonly Lazy<PlatformId> ourPlatform = new Lazy<PlatformId>(DeducePlatformId);
 
@@ -53,21 +47,8 @@ namespace JetBrains.Profiler.Api.Impl
       throw new PlatformNotSupportedException();
     }
 
-    public static bool InvokeCoreApi(InvokeDelegate invoke)
+    public static bool ThrowIfFail(HResults hr)
     {
-      // Note: try/catch block prevents propagating EntryPointNotFoundException in case when the user is using new methods which are absent in the native profiler library.
-      HResults hr;
-      try
-      {
-        hr = invoke();
-      }
-      catch (TypeLoadException e)
-      {
-        // Bug: System.EntryPointNotFoundException is private class in .NET Standard 1.x and .NET Core 1.x.
-        if (e.GetType().FullName == "System.EntryPointNotFoundException")
-          return false;
-        throw;
-      }
       switch (hr)
       {
       case HResults.S_OK:
@@ -78,5 +59,13 @@ namespace JetBrains.Profiler.Api.Impl
         throw new InternalProfilerException((int) hr);
       }
     }
+
+#if NETCOREAPP1_0 || NETCOREAPP1_1 || NETSTANDARD1_0 || NETSTANDARD1_1 || NETSTANDARD1_2 || NETSTANDARD1_3 || NETSTANDARD1_4 || NETSTANDARD1_5 || NETSTANDARD1_6
+    public static bool IsEntryPointNotFoundException(TypeLoadException e)
+    {
+      // Bug: System.EntryPointNotFoundException is private class in .NET Standard 1.x and .NET Core 1.x.
+      return e.GetType().FullName == "System.EntryPointNotFoundException";
+    }
+#endif
   }
 }

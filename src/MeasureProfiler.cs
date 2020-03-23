@@ -21,27 +21,35 @@ namespace JetBrains.Profiler.Api
     /// <returns>The set of features.</returns>
     public static MeasureFeatures GetFeatures()
     {
-      var id = Helper.Id;
-      MeasureFeatures features = 0;
-      switch (Helper.Platform)
+      try
       {
-      case PlatformId.Linux:
-        if (Helper.IsLibCoreApiSoAlreadyLoaded())
-          if (Helper.InvokeCoreApi(() => LibCoreApiSo.V1_Measure_CheckActive(id, out features)))
-            return features;
-        break;
-      case PlatformId.MacOsX:
-        if (Helper.IsLibCoreApiDylibAlreadyLoaded())
-          if (Helper.InvokeCoreApi(() => LibCoreApiDylib.V1_Measure_CheckActive(id, out features)))
-            return features;
-        break;
-      case PlatformId.Windows:
-        if (Helper.IsCoreApiDllAlreadyLoaded())
-          if (Helper.InvokeCoreApi(() => CoreApiDll.V1_Measure_CheckActive(id, out features)))
-            return features;
-        break;
-      default:
-        throw new PlatformNotSupportedException();
+        switch (Helper.Platform)
+        {
+        case PlatformId.Linux:
+          if (Helper.IsLibCoreApiSoAlreadyLoaded())
+            if (Helper.ThrowIfFail(LibCoreApiSo.V1_Measure_CheckActive(Helper.Id, out var features)))
+              return features;
+          break;
+        case PlatformId.MacOsX:
+          if (Helper.IsLibCoreApiDylibAlreadyLoaded())
+            if (Helper.ThrowIfFail(LibCoreApiDylib.V1_Measure_CheckActive(Helper.Id, out var features)))
+              return features;
+          break;
+        case PlatformId.Windows:
+          if (Helper.IsCoreApiDllAlreadyLoaded())
+            if (Helper.ThrowIfFail(CoreApiDll.V1_Measure_CheckActive(Helper.Id, out var features)))
+              return features;
+          break;
+        default:
+          throw new PlatformNotSupportedException();
+        }
+      }
+#if NETCOREAPP1_0 || NETCOREAPP1_1 || NETSTANDARD1_0 || NETSTANDARD1_1 || NETSTANDARD1_2 || NETSTANDARD1_3 || NETSTANDARD1_4 || NETSTANDARD1_5 || NETSTANDARD1_6
+      catch (TypeLoadException e) when (Helper.IsEntryPointNotFoundException(e))
+#else
+      catch (EntryPointNotFoundException)
+#endif
+      {
       }
       return 0;
     }
@@ -62,23 +70,33 @@ namespace JetBrains.Profiler.Api
     /// <param name="groupName">The name of the collected data block.</param>
     public static void StartCollectingData(string groupName)
     {
-      var id = Helper.Id;
-      switch (Helper.Platform)
+      try
       {
-      case PlatformId.Linux:
-        if (Helper.IsLibCoreApiSoAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApiSo.V1_Measure_StartCollecting(id, groupName));
-        break;
-      case PlatformId.MacOsX:
-        if (Helper.IsLibCoreApiDylibAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApiDylib.V1_Measure_StartCollecting(id, groupName));
-        break;
-      case PlatformId.Windows:
-        if (Helper.IsCoreApiDllAlreadyLoaded())
-          Helper.InvokeCoreApi(() => CoreApiDll.V1_Measure_StartCollecting(id, groupName));
-        break;
-      default:
-        throw new PlatformNotSupportedException();
+        switch (Helper.Platform)
+        {
+        case PlatformId.Linux:
+          if (Helper.IsLibCoreApiSoAlreadyLoaded())
+            Helper.ThrowIfFail(LibCoreApiSo.V1_Measure_StartCollecting(Helper.Id, groupName));
+          break;
+        case PlatformId.MacOsX:
+          if (Helper.IsLibCoreApiDylibAlreadyLoaded())
+            Helper.ThrowIfFail(LibCoreApiDylib.V1_Measure_StartCollecting(Helper.Id, groupName));
+          break;
+        case PlatformId.Windows:
+          if (Helper.IsCoreApiDllAlreadyLoaded())
+            Helper.ThrowIfFail(CoreApiDll.V1_Measure_StartCollecting(Helper.Id, groupName));
+          break;
+        default:
+          throw new PlatformNotSupportedException();
+        }
+      }
+#if NETCOREAPP1_0 || NETCOREAPP1_1 || NETSTANDARD1_0 || NETSTANDARD1_1 || NETSTANDARD1_2 || NETSTANDARD1_3 || NETSTANDARD1_4 || NETSTANDARD1_5 || NETSTANDARD1_6
+
+      catch (TypeLoadException e) when (Helper.IsEntryPointNotFoundException(e))
+#else
+      catch (EntryPointNotFoundException)
+#endif
+      {
       }
     }
 
@@ -88,23 +106,32 @@ namespace JetBrains.Profiler.Api
     /// </summary>
     public static void StopCollectingData()
     {
-      var id = Helper.Id;
-      switch (Helper.Platform)
+      try
       {
-      case PlatformId.Linux:
-        if (Helper.IsLibCoreApiSoAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApiSo.V1_Measure_StopCollecting(id));
-        break;
-      case PlatformId.MacOsX:
-        if (Helper.IsLibCoreApiDylibAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApiDylib.V1_Measure_StopCollecting(id));
-        break;
-      case PlatformId.Windows:
-        if (Helper.IsCoreApiDllAlreadyLoaded())
-          Helper.InvokeCoreApi(() => CoreApiDll.V1_Measure_StopCollecting(id));
-        break;
-      default:
-        throw new PlatformNotSupportedException();
+        switch (Helper.Platform)
+        {
+        case PlatformId.Linux:
+          if (Helper.IsLibCoreApiSoAlreadyLoaded())
+            Helper.ThrowIfFail(LibCoreApiSo.V1_Measure_StopCollecting(Helper.Id));
+          break;
+        case PlatformId.MacOsX:
+          if (Helper.IsLibCoreApiDylibAlreadyLoaded())
+            Helper.ThrowIfFail(LibCoreApiDylib.V1_Measure_StopCollecting(Helper.Id));
+          break;
+        case PlatformId.Windows:
+          if (Helper.IsCoreApiDllAlreadyLoaded())
+            Helper.ThrowIfFail(CoreApiDll.V1_Measure_StopCollecting(Helper.Id));
+          break;
+        default:
+          throw new PlatformNotSupportedException();
+        }
+      }
+#if NETCOREAPP1_0 || NETCOREAPP1_1 || NETSTANDARD1_0 || NETSTANDARD1_1 || NETSTANDARD1_2 || NETSTANDARD1_3 || NETSTANDARD1_4 || NETSTANDARD1_5 || NETSTANDARD1_6
+      catch (TypeLoadException e) when (Helper.IsEntryPointNotFoundException(e))
+#else
+      catch (EntryPointNotFoundException)
+#endif
+      {
       }
     }
 
@@ -127,23 +154,32 @@ namespace JetBrains.Profiler.Api
     /// </param>
     public static void SaveData(string name)
     {
-      var id = Helper.Id;
-      switch (Helper.Platform)
+      try
       {
-      case PlatformId.Linux:
-        if (Helper.IsLibCoreApiSoAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApiSo.V1_Measure_Save(id, name));
-        break;
-      case PlatformId.MacOsX:
-        if (Helper.IsLibCoreApiDylibAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApiDylib.V1_Measure_Save(id, name));
-        break;
-      case PlatformId.Windows:
-        if (Helper.IsCoreApiDllAlreadyLoaded())
-          Helper.InvokeCoreApi(() => CoreApiDll.V1_Measure_Save(id, name));
-        break;
-      default:
-        throw new PlatformNotSupportedException();
+        switch (Helper.Platform)
+        {
+        case PlatformId.Linux:
+          if (Helper.IsLibCoreApiSoAlreadyLoaded())
+            Helper.ThrowIfFail(LibCoreApiSo.V1_Measure_Save(Helper.Id, name));
+          break;
+        case PlatformId.MacOsX:
+          if (Helper.IsLibCoreApiDylibAlreadyLoaded())
+            Helper.ThrowIfFail(LibCoreApiDylib.V1_Measure_Save(Helper.Id, name));
+          break;
+        case PlatformId.Windows:
+          if (Helper.IsCoreApiDllAlreadyLoaded())
+            Helper.ThrowIfFail(CoreApiDll.V1_Measure_Save(Helper.Id, name));
+          break;
+        default:
+          throw new PlatformNotSupportedException();
+        }
+      }
+#if NETCOREAPP1_0 || NETCOREAPP1_1 || NETSTANDARD1_0 || NETSTANDARD1_1 || NETSTANDARD1_2 || NETSTANDARD1_3 || NETSTANDARD1_4 || NETSTANDARD1_5 || NETSTANDARD1_6
+      catch (TypeLoadException e) when (Helper.IsEntryPointNotFoundException(e))
+#else
+      catch (EntryPointNotFoundException)
+#endif
+      {
       }
     }
 
@@ -153,23 +189,32 @@ namespace JetBrains.Profiler.Api
     /// </summary>
     public static void DropData()
     {
-      var id = Helper.Id;
-      switch (Helper.Platform)
+      try
       {
-      case PlatformId.Linux:
-        if (Helper.IsLibCoreApiSoAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApiSo.V1_Measure_Drop(id));
-        break;
-      case PlatformId.MacOsX:
-        if (Helper.IsLibCoreApiDylibAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApiDylib.V1_Measure_Drop(id));
-        break;
-      case PlatformId.Windows:
-        if (Helper.IsCoreApiDllAlreadyLoaded())
-          Helper.InvokeCoreApi(() => CoreApiDll.V1_Measure_Drop(id));
-        break;
-      default:
-        throw new PlatformNotSupportedException();
+        switch (Helper.Platform)
+        {
+        case PlatformId.Linux:
+          if (Helper.IsLibCoreApiSoAlreadyLoaded())
+            Helper.ThrowIfFail(LibCoreApiSo.V1_Measure_Drop(Helper.Id));
+          break;
+        case PlatformId.MacOsX:
+          if (Helper.IsLibCoreApiDylibAlreadyLoaded())
+            Helper.ThrowIfFail(LibCoreApiDylib.V1_Measure_Drop(Helper.Id));
+          break;
+        case PlatformId.Windows:
+          if (Helper.IsCoreApiDllAlreadyLoaded())
+            Helper.ThrowIfFail(CoreApiDll.V1_Measure_Drop(Helper.Id));
+          break;
+        default:
+          throw new PlatformNotSupportedException();
+        }
+      }
+#if NETCOREAPP1_0 || NETCOREAPP1_1 || NETSTANDARD1_0 || NETSTANDARD1_1 || NETSTANDARD1_2 || NETSTANDARD1_3 || NETSTANDARD1_4 || NETSTANDARD1_5 || NETSTANDARD1_6
+      catch (TypeLoadException e) when (Helper.IsEntryPointNotFoundException(e))
+#else
+      catch (EntryPointNotFoundException)
+#endif
+      {
       }
     }
 
@@ -180,23 +225,32 @@ namespace JetBrains.Profiler.Api
     /// </summary>
     public static void Detach()
     {
-      var id = Helper.Id;
-      switch (Helper.Platform)
+      try
       {
-      case PlatformId.Linux:
-        if (Helper.IsLibCoreApiSoAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApiSo.V1_Measure_Detach(id));
-        break;
-      case PlatformId.MacOsX:
-        if (Helper.IsLibCoreApiDylibAlreadyLoaded())
-          Helper.InvokeCoreApi(() => LibCoreApiDylib.V1_Measure_Detach(id));
-        break;
-      case PlatformId.Windows:
-        if (Helper.IsCoreApiDllAlreadyLoaded())
-          Helper.InvokeCoreApi(() => CoreApiDll.V1_Measure_Detach(id));
-        break;
-      default:
-        throw new PlatformNotSupportedException();
+        switch (Helper.Platform)
+        {
+        case PlatformId.Linux:
+          if (Helper.IsLibCoreApiSoAlreadyLoaded())
+            Helper.ThrowIfFail(LibCoreApiSo.V1_Measure_Detach(Helper.Id));
+          break;
+        case PlatformId.MacOsX:
+          if (Helper.IsLibCoreApiDylibAlreadyLoaded())
+            Helper.ThrowIfFail(LibCoreApiDylib.V1_Measure_Detach(Helper.Id));
+          break;
+        case PlatformId.Windows:
+          if (Helper.IsCoreApiDllAlreadyLoaded())
+            Helper.ThrowIfFail(CoreApiDll.V1_Measure_Detach(Helper.Id));
+          break;
+        default:
+          throw new PlatformNotSupportedException();
+        }
+      }
+#if NETCOREAPP1_0 || NETCOREAPP1_1 || NETSTANDARD1_0 || NETSTANDARD1_1 || NETSTANDARD1_2 || NETSTANDARD1_3 || NETSTANDARD1_4 || NETSTANDARD1_5 || NETSTANDARD1_6
+      catch (TypeLoadException e) when (Helper.IsEntryPointNotFoundException(e))
+#else
+      catch (EntryPointNotFoundException)
+#endif
+      {
       }
     }
   }
