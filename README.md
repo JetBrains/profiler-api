@@ -4,3 +4,4 @@ JetBrains Profiler API allows you to control profiling sessions right from the c
 Use this API in conjunction with JetBrains dotTrace, JetBrains dotMemory, or JetBrains dotCover. 
 This API can also be used in conjunction with JetBrains Self-Profiling API.
 For the details on how to use the API, refer to the [online documentation](https://www.jetbrains.com/help/profiler/Profiling_Guidelines__Advanced_Profiling_Using_dotTrace_API.html).
+Nuget packages are available on [nuget.org](https://www.nuget.org/packages/JetBrains.Profiler.Api/).
