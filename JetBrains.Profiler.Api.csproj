@@ -24,12 +24,7 @@
   <ItemGroup>
     <None Include="icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
-  <PropertyGroup>
-    <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net20'">$(NuGetPackageRoot)microsoft.netframework.referenceassemblies.net20/1.0.0/build/.NETFramework/v2.0/</FrameworkPathOverride>
-    <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net471'">$(NuGetPackageRoot)microsoft.netframework.referenceassemblies.net471/1.0.0/build/.NETFramework/v4.7.1/</FrameworkPathOverride>
-  </PropertyGroup>
   <ItemGroup>
-    <PackageReference Condition="'$(TargetFramework)' == 'net20'" Include="Microsoft.NETFramework.ReferenceAssemblies.net20" Version="1.0.0" ExcludeAssets="All" PrivateAssets="All" />
-    <PackageReference Condition="'$(TargetFramework)' == 'net471'" Include="Microsoft.NETFramework.ReferenceAssemblies.net471" Version="1.0.0" ExcludeAssets="All" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
 </Project>
