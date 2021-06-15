@@ -2,8 +2,8 @@
 .vs/
 .idea/
 _ReSharper.Caches/
-obj/
-bin/
+**/obj/
+**/bin/
 packages/
 *.user
 *.Snk
