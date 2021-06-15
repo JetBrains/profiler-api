@@ -4,5 +4,6 @@
 _ReSharper.Caches/
 obj/
 bin/
+packages/
 *.user
 *.Snk
