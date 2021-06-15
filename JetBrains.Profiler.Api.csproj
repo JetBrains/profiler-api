@@ -9,7 +9,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <Company>JetBrains s.r.o.</Company>
-    <Copyright>Copyright © 2019-2021 JetBrains s.r.o.</Copyright>
+    <Copyright>Copyright © 2019-$([System.DateTime]::Now.ToString('yyyy')) JetBrains s.r.o.</Copyright>
     <Authors>Mikhail Pilin</Authors>
     <Description>JetBrains Profiler API allows you to control profiling sessions right from the code of your application. Use this API in conjunction with JetBrains dotTrace, JetBrains dotMemory, or JetBrains dotCover. This API can also be used in conjunction with JetBrains Self-Profiling API.</Description>
     <PackageReleaseNotes>• Supported OSs: Windows 7 x86/x64 and later, macOS 10.12 Sierra - 10.15 Catalina x64, macOS 11.0 Big Sur x64/arm64 and later, Linux x64/arm64 (most desktop distributions like CentOS, Debian, Fedora, Ubuntu and derivatives)
