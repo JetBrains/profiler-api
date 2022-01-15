@@ -1,4 +1,8 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
+
+// ReSharper disable InconsistentNaming
+// ReSharper disable IdentifierTypo
 
 namespace JetBrains.Profiler.Api.Impl.Linux
 {
@@ -6,44 +10,89 @@ namespace JetBrains.Profiler.Api.Impl.Linux
   {
     public const string LibraryName = "libJetBrains.Profiler.CoreApi.so";
 
+    private static readonly SafeDlHandle ourLibraryHandle;
+
     #region Measure
 
-    [DllImport(LibraryName, ExactSpelling = true)]
-    public static extern HResults V1_Measure_CheckActive(uint id, out MeasureFeatures features);
+    public delegate HResults V1_Measure_CheckActive_Delegate(uint id, out MeasureFeatures features);
+    public delegate HResults V1_Measure_StartCollecting_Delegate(uint id, [MarshalAs(UnmanagedType.LPWStr)] string groupName);
+    public delegate HResults V1_Measure_StopCollecting_Delegate(uint id);
+    public delegate HResults V1_Measure_Save_Delegate(uint id, [MarshalAs(UnmanagedType.LPWStr)] string name);
+    public delegate HResults V1_Measure_Drop_Delegate(uint id);
+    public delegate HResults V1_Measure_Detach_Delegate(uint id);
 
-    [DllImport(LibraryName, ExactSpelling = true)]
-    public static extern HResults V1_Measure_StartCollecting(uint id, [MarshalAs(UnmanagedType.LPWStr)] string groupName);
-
-    [DllImport(LibraryName, ExactSpelling = true)]
-    public static extern HResults V1_Measure_StopCollecting(uint id);
-
-    [DllImport(LibraryName, ExactSpelling = true)]
-    public static extern HResults V1_Measure_Save(uint id, [MarshalAs(UnmanagedType.LPWStr)] string name);
-
-    [DllImport(LibraryName, ExactSpelling = true)]
-    public static extern HResults V1_Measure_Drop(uint id);
-
-    [DllImport(LibraryName, ExactSpelling = true)]
-    public static extern HResults V1_Measure_Detach(uint id);
+    public static readonly V1_Measure_CheckActive_Delegate V1_Measure_CheckActive;
+    public static readonly V1_Measure_StartCollecting_Delegate V1_Measure_StartCollecting;
+    public static readonly V1_Measure_StopCollecting_Delegate V1_Measure_StopCollecting;
+    public static readonly V1_Measure_Save_Delegate V1_Measure_Save;
+    public static readonly V1_Measure_Drop_Delegate V1_Measure_Drop;
+    public static readonly V1_Measure_Detach_Delegate V1_Measure_Detach;
 
     #endregion
 
     #region Memory
 
-    [DllImport(LibraryName, ExactSpelling = true)]
-    public static extern HResults V1_Memory_CheckActive(uint id, out MemoryFeatures features);
+    public delegate HResults V1_Memory_CheckActive_Delegate(uint id, out MemoryFeatures features);
+    public delegate HResults V1_Memory_GetSnapshot_Delegate(uint id, [MarshalAs(UnmanagedType.LPWStr)] string name);
+    public delegate HResults V1_Memory_ForceGc_Delegate(uint id);
+    public delegate HResults V1_Memory_CollectAllocations_Delegate(uint id, bool enable);
+    public delegate HResults V1_Memory_Detach_Delegate(uint id);
 
-    [DllImport(LibraryName, ExactSpelling = true)]
-    public static extern HResults V1_Memory_GetSnapshot(uint id, [MarshalAs(UnmanagedType.LPWStr)] string name);
+    public static readonly V1_Memory_CheckActive_Delegate V1_Memory_CheckActive;
+    public static readonly V1_Memory_GetSnapshot_Delegate V1_Memory_GetSnapshot;
+    public static readonly V1_Memory_ForceGc_Delegate V1_Memory_ForceGc;
+    public static readonly V1_Memory_CollectAllocations_Delegate V1_Memory_CollectAllocations;
+    public static readonly V1_Memory_Detach_Delegate V1_Memory_Detach;
 
-    [DllImport(LibraryName, ExactSpelling = true)]
-    public static extern HResults V1_Memory_ForceGc(uint id);
+    #endregion
 
-    [DllImport(LibraryName, ExactSpelling = true)]
-    public static extern HResults V1_Memory_CollectAllocations(uint id, bool enable);
+    private static TDelegate GetUnmanagedFunction<TDelegate>(IntPtr handle, string functionName) where TDelegate : class
+    {
+      IntPtr ptr = LibDlSo2.dlsym(handle, functionName);
+      if (ptr == IntPtr.Zero)
+        throw new Exception($"Failed to get function {functionName}");
 
-    [DllImport(LibraryName, ExactSpelling = true)]
-    public static extern HResults V1_Memory_Detach(uint id);
+      return (TDelegate)(object)Marshal.GetDelegateForFunctionPointer(ptr, typeof(TDelegate));
+    }
+
+    static LibCoreApiSo()
+    {
+      string libraryPath = LibCSo6.Helper.DlIteratePhdrFindLibraryPath(LibraryName) ?? throw new DllNotFoundException($"Failed to find library {LibraryName}");
+      ourLibraryHandle = new SafeDlHandle(LibDlSo2.dlopen(libraryPath, RTLD.RTLD_GLOBAL | RTLD.RTLD_LAZY));
+      if (ourLibraryHandle.Handle == IntPtr.Zero)
+        throw new DllNotFoundException($"Failed to load library {LibraryName}");
+
+      V1_Measure_CheckActive = GetUnmanagedFunction<V1_Measure_CheckActive_Delegate>(ourLibraryHandle.Handle, nameof(V1_Measure_CheckActive));
+      V1_Measure_StartCollecting = GetUnmanagedFunction<V1_Measure_StartCollecting_Delegate>(ourLibraryHandle.Handle, nameof(V1_Measure_StartCollecting));
+      V1_Measure_StopCollecting = GetUnmanagedFunction<V1_Measure_StopCollecting_Delegate>(ourLibraryHandle.Handle, nameof(V1_Measure_StopCollecting));
+      V1_Measure_Save = GetUnmanagedFunction<V1_Measure_Save_Delegate>(ourLibraryHandle.Handle, nameof(V1_Measure_Save));
+      V1_Measure_Drop = GetUnmanagedFunction<V1_Measure_Drop_Delegate>(ourLibraryHandle.Handle, nameof(V1_Measure_Drop));
+      V1_Measure_Detach = GetUnmanagedFunction<V1_Measure_Detach_Delegate>(ourLibraryHandle.Handle, nameof(V1_Measure_Detach));
+
+      V1_Memory_CheckActive = GetUnmanagedFunction<V1_Memory_CheckActive_Delegate>(ourLibraryHandle.Handle, nameof(V1_Memory_CheckActive));
+      V1_Memory_GetSnapshot = GetUnmanagedFunction<V1_Memory_GetSnapshot_Delegate>(ourLibraryHandle.Handle, nameof(V1_Memory_GetSnapshot));
+      V1_Memory_ForceGc = GetUnmanagedFunction<V1_Memory_ForceGc_Delegate>(ourLibraryHandle.Handle, nameof(V1_Memory_ForceGc));
+      V1_Memory_CollectAllocations = GetUnmanagedFunction<V1_Memory_CollectAllocations_Delegate>(ourLibraryHandle.Handle, nameof(V1_Memory_CollectAllocations));
+      V1_Memory_Detach = GetUnmanagedFunction<V1_Memory_Detach_Delegate>(ourLibraryHandle.Handle, nameof(V1_Memory_Detach));
+    }
+
+    #region Nested type: SafeDlHandle
+
+    private sealed class SafeDlHandle
+    {
+      public IntPtr Handle { get; }
+
+      public SafeDlHandle(IntPtr handle)
+      {
+        Handle = handle;
+      }
+
+      ~SafeDlHandle()
+      {
+        if (Handle != IntPtr.Zero)
+          LibDlSo2.dlclose(Handle);
+      }
+    }
 
     #endregion
   }
