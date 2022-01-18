@@ -26,17 +26,17 @@ namespace JetBrains.Profiler.Api
         switch (Helper.Platform)
         {
         case PlatformId.Linux:
-          if (Helper.IsLibCoreApiSoAlreadyLoaded())
+          if (LinuxHelper.IsCoreApiAlreadyLoaded())
             if (Helper.ThrowIfFail(LibCoreApiSo.V1_Memory_CheckActive(Helper.Id, out var features)))
               return features;
           break;
         case PlatformId.MacOsX:
-          if (Helper.IsLibCoreApiDylibAlreadyLoaded())
+          if (MacOsXHelper.IsCoreApiAlreadyLoaded())
             if (Helper.ThrowIfFail(LibCoreApiDylib.V1_Memory_CheckActive(Helper.Id, out var features)))
               return features;
           break;
         case PlatformId.Windows:
-          if (Helper.IsCoreApiDllAlreadyLoaded())
+          if (WindowsHelper.IsCoreApiAlreadyLoaded())
             if (Helper.ThrowIfFail(CoreApiDll.V1_Memory_CheckActive(Helper.Id, out var features)))
               return features;
           break;
@@ -75,15 +75,15 @@ namespace JetBrains.Profiler.Api
         switch (Helper.Platform)
         {
         case PlatformId.Linux:
-          if (Helper.IsLibCoreApiSoAlreadyLoaded())
+          if (LinuxHelper.IsCoreApiAlreadyLoaded())
             Helper.ThrowIfFail(LibCoreApiSo.V1_Memory_GetSnapshot(Helper.Id, name));
           break;
         case PlatformId.MacOsX:
-          if (Helper.IsLibCoreApiDylibAlreadyLoaded())
+          if (MacOsXHelper.IsCoreApiAlreadyLoaded())
             Helper.ThrowIfFail(LibCoreApiDylib.V1_Memory_GetSnapshot(Helper.Id, name));
           break;
         case PlatformId.Windows:
-          if (Helper.IsCoreApiDllAlreadyLoaded())
+          if (WindowsHelper.IsCoreApiAlreadyLoaded())
             Helper.ThrowIfFail(CoreApiDll.V1_Memory_GetSnapshot(Helper.Id, name));
           break;
         default:
@@ -110,15 +110,15 @@ namespace JetBrains.Profiler.Api
         switch (Helper.Platform)
         {
         case PlatformId.Linux:
-          if (Helper.IsLibCoreApiSoAlreadyLoaded())
+          if (LinuxHelper.IsCoreApiAlreadyLoaded())
             Helper.ThrowIfFail(LibCoreApiSo.V1_Memory_ForceGc(Helper.Id));
           break;
         case PlatformId.MacOsX:
-          if (Helper.IsLibCoreApiDylibAlreadyLoaded())
+          if (MacOsXHelper.IsCoreApiAlreadyLoaded())
             Helper.ThrowIfFail(LibCoreApiDylib.V1_Memory_ForceGc(Helper.Id));
           break;
         case PlatformId.Windows:
-          if (Helper.IsCoreApiDllAlreadyLoaded())
+          if (WindowsHelper.IsCoreApiAlreadyLoaded())
             Helper.ThrowIfFail(CoreApiDll.V1_Memory_ForceGc(Helper.Id));
           break;
         default:
@@ -147,15 +147,15 @@ namespace JetBrains.Profiler.Api
         switch (Helper.Platform)
         {
         case PlatformId.Linux:
-          if (Helper.IsLibCoreApiSoAlreadyLoaded())
+          if (LinuxHelper.IsCoreApiAlreadyLoaded())
             Helper.ThrowIfFail(LibCoreApiSo.V1_Memory_CollectAllocations(Helper.Id, enable));
           break;
         case PlatformId.MacOsX:
-          if (Helper.IsLibCoreApiDylibAlreadyLoaded())
+          if (MacOsXHelper.IsCoreApiAlreadyLoaded())
             Helper.ThrowIfFail(LibCoreApiDylib.V1_Memory_CollectAllocations(Helper.Id, enable));
           break;
         case PlatformId.Windows:
-          if (Helper.IsCoreApiDllAlreadyLoaded())
+          if (WindowsHelper.IsCoreApiAlreadyLoaded())
             Helper.ThrowIfFail(CoreApiDll.V1_Memory_CollectAllocations(Helper.Id, enable));
           break;
         default:
@@ -183,15 +183,15 @@ namespace JetBrains.Profiler.Api
         switch (Helper.Platform)
         {
         case PlatformId.Linux:
-          if (Helper.IsLibCoreApiSoAlreadyLoaded())
+          if (LinuxHelper.IsCoreApiAlreadyLoaded())
             Helper.ThrowIfFail(LibCoreApiSo.V1_Memory_Detach(Helper.Id));
           break;
         case PlatformId.MacOsX:
-          if (Helper.IsLibCoreApiDylibAlreadyLoaded())
+          if (MacOsXHelper.IsCoreApiAlreadyLoaded())
             Helper.ThrowIfFail(LibCoreApiDylib.V1_Memory_Detach(Helper.Id));
           break;
         case PlatformId.Windows:
-          if (Helper.IsCoreApiDllAlreadyLoaded())
+          if (WindowsHelper.IsCoreApiAlreadyLoaded())
             Helper.ThrowIfFail(CoreApiDll.V1_Memory_Detach(Helper.Id));
           break;
         default:

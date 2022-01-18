@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using JetBrains.Profiler.Api.Impl.Unix;
 
 namespace JetBrains.Profiler.Api.Impl
 {
-  internal static partial class Helper
+  internal static class Helper
   {
     private static readonly Lazy<uint> ourId = new Lazy<uint>(DeduceId);
     private static readonly Lazy<PlatformId> ourPlatform = new Lazy<PlatformId>(DeducePlatformId);
@@ -32,7 +33,7 @@ namespace JetBrains.Profiler.Api.Impl
       switch (Environment.OSVersion.Platform)
       {
       case PlatformID.Unix:
-        return IsMacOsX ? PlatformId.MacOsX : PlatformId.Linux;
+        return UnixHelper.IsMacOsX ? PlatformId.MacOsX : PlatformId.Linux;
       case PlatformID.Win32NT:
         return PlatformId.Windows;
       }

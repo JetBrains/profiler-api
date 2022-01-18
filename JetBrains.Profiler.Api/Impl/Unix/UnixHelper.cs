@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using JetBrains.Profiler.Api.Impl.Unix;
 
-namespace JetBrains.Profiler.Api.Impl
+namespace JetBrains.Profiler.Api.Impl.Unix
 {
-  internal static partial class Helper
+  internal static class UnixHelper
   {
     private static readonly Lazy<bool> ourIsMacOsX = new Lazy<bool>(DeduceIsMacOsX);
 
-    private static bool IsMacOsX => ourIsMacOsX.Value;
+    public static bool IsMacOsX => ourIsMacOsX.Value;
 
     private static string GetSysnameFromUname()
     {
