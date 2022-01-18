@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using JetBrains.Annotations;
 
 namespace JetBrains.Profiler.Api.Impl.Unix
 {
@@ -9,6 +10,7 @@ namespace JetBrains.Profiler.Api.Impl.Unix
 
     public static bool IsMacOsX => ourIsMacOsX.Value;
 
+    [NotNull]
     private static string GetSysnameFromUname()
     {
       var buf = Marshal.AllocHGlobal(8 * 1024);

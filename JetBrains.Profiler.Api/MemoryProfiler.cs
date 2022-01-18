@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 using JetBrains.Profiler.Api.Impl;
 using JetBrains.Profiler.Api.Impl.Linux;
 using JetBrains.Profiler.Api.Impl.MacOsX;
@@ -59,7 +60,7 @@ namespace JetBrains.Profiler.Api
     ///   Doesn't throw any errors even if the application is run with profiling disabled.
     /// </summary>
     /// <param name="name">The name of the memory snapshot. This is not a file name. Currently not used.</param>
-    public static void GetSnapshot(string name)
+    public static void GetSnapshot([CanBeNull] string name)
     {
       switch (Helper.Platform)
       {

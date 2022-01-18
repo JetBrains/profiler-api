@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using JetBrains.Annotations;
 
 namespace JetBrains.Profiler.Api.Impl
 {
@@ -17,7 +18,7 @@ namespace JetBrains.Profiler.Api.Impl
     private volatile int myHasValue;
     private TValue myValue;
 
-    public Lazy(FuncDelegate func)
+    public Lazy([NotNull] FuncDelegate func)
     {
       myFunc = func ?? throw new ArgumentNullException(nameof(func));
     }

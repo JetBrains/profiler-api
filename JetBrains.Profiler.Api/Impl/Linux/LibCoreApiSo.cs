@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using JetBrains.Annotations;
 
 // ReSharper disable InconsistentNaming
 // ReSharper disable IdentifierTypo
@@ -10,6 +11,7 @@ namespace JetBrains.Profiler.Api.Impl.Linux
   {
     public const string LibraryName = "libJetBrains.Profiler.CoreApi.so";
 
+    [UsedImplicitly]
     private static readonly SafeDlHandle ourHandle; // Note(ww898): Keep the handle till domain or load context unloading!!!
 
     static LibCoreApiSo()
@@ -23,7 +25,8 @@ namespace JetBrains.Profiler.Api.Impl.Linux
         throw new DllNotFoundException("Failed to load shared library " + LibraryName);
       ourHandle = new SafeDlHandle(handle);
 
-      TDelegate GetDlFunction<TDelegate>(string functionName) where TDelegate : Delegate
+      [NotNull]
+      TDelegate GetDlFunction<TDelegate>([NotNull] string functionName) where TDelegate : Delegate
       {
         var ptr = LibDlSo2.dlsym(handle, functionName);
         if (ptr == IntPtr.Zero)
@@ -80,9 +83,9 @@ namespace JetBrains.Profiler.Api.Impl.Linux
 
     // @formatter:off
     public delegate HResults V1_Measure_CheckActive_Delegate(uint id, out MeasureFeatures features);
-    public delegate HResults V1_Measure_StartCollecting_Delegate(uint id, [MarshalAs(UnmanagedType.LPWStr)] string groupName);
+    public delegate HResults V1_Measure_StartCollecting_Delegate(uint id, [MarshalAs(UnmanagedType.LPWStr)] [CanBeNull] string groupName);
     public delegate HResults V1_Measure_StopCollecting_Delegate(uint id);
-    public delegate HResults V1_Measure_Save_Delegate(uint id, [MarshalAs(UnmanagedType.LPWStr)] string name);
+    public delegate HResults V1_Measure_Save_Delegate(uint id, [MarshalAs(UnmanagedType.LPWStr)] [CanBeNull] string name);
     public delegate HResults V1_Measure_Drop_Delegate(uint id);
     public delegate HResults V1_Measure_Detach_Delegate(uint id);
     // @formatter:on
@@ -100,7 +103,7 @@ namespace JetBrains.Profiler.Api.Impl.Linux
 
     // @formatter:off
     public delegate HResults V1_Memory_CheckActive_Delegate(uint id, out MemoryFeatures features);
-    public delegate HResults V1_Memory_GetSnapshot_Delegate(uint id, [MarshalAs(UnmanagedType.LPWStr)] string name);
+    public delegate HResults V1_Memory_GetSnapshot_Delegate(uint id, [MarshalAs(UnmanagedType.LPWStr)] [CanBeNull] string name);
     public delegate HResults V1_Memory_ForceGc_Delegate(uint id);
     public delegate HResults V1_Memory_CollectAllocations_Delegate(uint id, bool enable);
     public delegate HResults V1_Memory_Detach_Delegate(uint id);
