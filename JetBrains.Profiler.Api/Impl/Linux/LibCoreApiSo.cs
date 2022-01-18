@@ -57,7 +57,7 @@ namespace JetBrains.Profiler.Api.Impl.Linux
 
     static LibCoreApiSo()
     {
-      string libraryPath = LibCSo6.Helper.DlIteratePhdrFindLibraryPath(LibraryName) ?? throw new DllNotFoundException($"Failed to find library {LibraryName}");
+      string libraryPath = LinuxHelper.DlIteratePhdrFindLibraryPath(LibraryName) ?? throw new DllNotFoundException($"Failed to find library {LibraryName}");
       ourLibraryHandle = new SafeDlHandle(LibDlSo2.dlopen(libraryPath, RTLD.RTLD_GLOBAL | RTLD.RTLD_LAZY));
       if (ourLibraryHandle.Handle == IntPtr.Zero)
         throw new DllNotFoundException($"Failed to load library {LibraryName}");
