@@ -10,7 +10,7 @@
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <Company>JetBrains s.r.o.</Company>
     <Copyright>Copyright © 2019-$([System.DateTime]::Now.ToString('yyyy')) JetBrains s.r.o.</Copyright>
-    <Authors>Mikhail Pilin</Authors>
+    <Authors>Mikhail Pilin, Ilia Kirianovskii</Authors>
     <Description>JetBrains Profiler API allows you to control profiling sessions right from the code of your application. Use this API in conjunction with JetBrains dotTrace, JetBrains dotMemory, or JetBrains dotCover. This API can also be used in conjunction with JetBrains Self-Profiling API.</Description>
     <PackageReleaseNotes>• Supported OSs: Windows 7 x86/x64 and later, macOS 10.12 Sierra - 10.15 Catalina x64, macOS 11.0 Big Sur x64/arm64 and later, Linux Glibc/Musl x64/arm64 (most desktop distributions like Alpine, CentOS, Debian, Fedora, Ubuntu and derivatives)
 • Supported frameworks: .NET Framework 2.0 and later, .NET Standard 1.1 and later, .NET Core 1.0 and later, .NET 5.0 and later, Mono 5.10 and later</PackageReleaseNotes>
@@ -18,7 +18,7 @@
     <PackageProjectUrl>https://github.com/JetBrains/profiler-api/blob/master/README.md</PackageProjectUrl>
     <PackageIconUrl>https://resources.jetbrains.com/storage/products/resharper/img/icons/ProfilerApi_128.png</PackageIconUrl>
     <PackageIcon>icon.png</PackageIcon>
-    <PackageTags>jetbrains profiler profiling performance memory coverage net dotnet netcore dotnetcore netstandard windows uwp macos mac linux x86 x64 arm64 x86-64 x86_64 aarch64</PackageTags>
+    <PackageTags>jetbrains profiler profiling performance memory coverage net dotnet netcore dotnetcore netstandard windows uwp macos mac linux musl glibc x86 x64 arm64 x86-64 x86_64 aarch64</PackageTags>
     <Version>1.2.0-tmp202201181812</Version>
     <LangVersion>default</LangVersion>
   </PropertyGroup>
