@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.1;netcoreapp3.1;net5.0;net461</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.1;netcoreapp3.1;net5.0;net471</TargetFrameworks>
     <RootNamespace>JetBrains.Profiler.Api.Tests</RootNamespace>
     <IsPackable>false</IsPackable>
     <SignAssembly>true</SignAssembly>

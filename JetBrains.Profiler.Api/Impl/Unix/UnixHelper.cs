@@ -5,7 +5,7 @@ namespace JetBrains.Profiler.Api.Impl.Unix
 {
   internal static class UnixHelper
   {
-    private static readonly Lazy<bool> ourIsMacOsX = new Lazy<bool>(DeduceIsMacOsX);
+    private static readonly Lazy<bool> ourIsMacOsX = new(DeduceIsMacOsX);
 
     public static bool IsMacOsX => ourIsMacOsX.Value;
 

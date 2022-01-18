@@ -6,8 +6,8 @@ namespace JetBrains.Profiler.Api.Impl
 {
   internal static class Helper
   {
-    private static readonly Lazy<uint> ourId = new Lazy<uint>(DeduceId);
-    private static readonly Lazy<PlatformId> ourPlatform = new Lazy<PlatformId>(DeducePlatformId);
+    private static readonly Lazy<uint> ourId = new(DeduceId);
+    private static readonly Lazy<PlatformId> ourPlatform = new(DeducePlatformId);
 
     public static uint Id => ourId.Value;
     public static PlatformId Platform => ourPlatform.Value;

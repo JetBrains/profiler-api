@@ -20,6 +20,7 @@
     <PackageIcon>icon.png</PackageIcon>
     <PackageTags>jetbrains profiler profiling performance memory coverage net dotnet netcore dotnetcore netstandard windows uwp macos mac linux x86 x64 arm64 x86-64 x86_64 aarch64</PackageTags>
     <Version>1.2.0-tmp202201181812</Version>
+    <LangVersion>default</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
