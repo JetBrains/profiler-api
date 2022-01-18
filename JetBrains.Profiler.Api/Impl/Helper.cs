@@ -60,13 +60,5 @@ namespace JetBrains.Profiler.Api.Impl
         throw new InternalProfilerException((int) hr);
       }
     }
-
-#if NETCOREAPP1_0 || NETCOREAPP1_1 || NETSTANDARD1_0 || NETSTANDARD1_1 || NETSTANDARD1_2 || NETSTANDARD1_3 || NETSTANDARD1_4 || NETSTANDARD1_5 || NETSTANDARD1_6
-    public static bool IsEntryPointNotFoundException(TypeLoadException e)
-    {
-      // Bug: System.EntryPointNotFoundException is private class in .NET Standard 1.x and .NET Core 1.x.
-      return e.GetType().FullName == "System.EntryPointNotFoundException";
-    }
-#endif
   }
 }
