@@ -1,4 +1,4 @@
-# JetBrains.Profiler.Api
+# JetBrains.Profiler.Api [![official JetBrains project](https://jb.gg/badges/official.svg)](https://confluence.jetbrains.com/display/ALL/JetBrains+on+GitHub)
 
 JetBrains Profiler API allows you to control profiling sessions right from the code of your application. 
 Use this API in conjunction with JetBrains dotTrace, JetBrains dotMemory, or JetBrains dotCover. 
