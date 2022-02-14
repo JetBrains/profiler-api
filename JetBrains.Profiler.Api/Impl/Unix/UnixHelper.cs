@@ -6,9 +6,9 @@ namespace JetBrains.Profiler.Api.Impl.Unix
 {
   internal static class UnixHelper
   {
-    private static readonly Lazy<bool> ourIsMacOsX = new(DeduceIsMacOsX);
+    private static readonly Lazy<PlatformId> ourPlatformLazy = new(DeducePlatform);
 
-    public static bool IsMacOsX => ourIsMacOsX.Value;
+    public static PlatformId Platform => ourPlatformLazy.Value;
 
     [NotNull]
     private static string GetSysnameFromUname()
@@ -28,18 +28,15 @@ namespace JetBrains.Profiler.Api.Impl.Unix
       }
     }
 
-    private static bool DeduceIsMacOsX()
+    private static PlatformId DeducePlatform()
     {
       var sysname = GetSysnameFromUname();
-      switch (sysname)
-      {
-      case "Darwin":
-        return true;
-      case "Linux":
-        return false;
-      default:
-        throw new Exception("Unsupported system name: " + sysname);
-      }
+      return sysname switch
+        {
+          "Darwin" => PlatformId.MacOsX,
+          "Linux" => PlatformId.Linux,
+          _ => throw new Exception("Unsupported system name: " + sysname)
+        };
     }
   }
 }

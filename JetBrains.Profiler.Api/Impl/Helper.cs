@@ -6,11 +6,11 @@ namespace JetBrains.Profiler.Api.Impl
 {
   internal static class Helper
   {
-    private static readonly Lazy<uint> ourId = new(DeduceId);
-    private static readonly Lazy<PlatformId> ourPlatform = new(DeducePlatformId);
+    private static readonly Lazy<uint> ourIdLazy = new(DeduceId);
+    private static readonly Lazy<PlatformId> ourPlatformLazy = new(DeducePlatform);
 
-    public static uint Id => ourId.Value;
-    public static PlatformId Platform => ourPlatform.Value;
+    public static uint Id => ourIdLazy.Value;
+    public static PlatformId Platform => ourPlatformLazy.Value;
 
     private static uint DeduceId()
     {
@@ -25,18 +25,17 @@ namespace JetBrains.Profiler.Api.Impl
       return (uint) major << 16 | minor;
     }
 
-    private static PlatformId DeducePlatformId()
+    private static PlatformId DeducePlatform()
     {
 #if NETSTANDARD1_0
 #error No OS detection possible
 #elif NET20 || NET35 || NET40 || NET45 || NET451 || NET452 || NET46 || NET461 || NET462 || NET47
-      switch (Environment.OSVersion.Platform)
-      {
-      case PlatformID.Unix:
-        return UnixHelper.IsMacOsX ? PlatformId.MacOsX : PlatformId.Linux;
-      case PlatformID.Win32NT:
-        return PlatformId.Windows;
-      }
+      return Environment.OSVersion.Platform switch
+        {
+          PlatformID.Unix => UnixHelper.Platform,
+          PlatformID.Win32NT => PlatformId.Windows,
+          _ => throw new PlatformNotSupportedException()
+        };
 #else
       if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         return PlatformId.Windows;
@@ -44,21 +43,18 @@ namespace JetBrains.Profiler.Api.Impl
         return PlatformId.MacOsX;
       if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         return PlatformId.Linux;
-#endif
       throw new PlatformNotSupportedException();
+#endif
     }
 
     public static bool ThrowIfFail(HResults hr)
     {
-      switch (hr)
-      {
-      case HResults.S_OK:
-        return true;
-      case HResults.S_FALSE:
-        return false;
-      default:
-        throw new InternalProfilerException((int) hr);
-      }
+      return hr switch
+        {
+          HResults.S_OK => true,
+          HResults.S_FALSE => false,
+          _ => throw new InternalProfilerException((int)hr)
+        };
     }
   }
 }
