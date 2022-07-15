@@ -13,11 +13,9 @@ namespace JetBrains.Profiler.Api.Impl.Linux
 
     public static string DlIteratePhdrFindLibraryPath(string libraryName)
     {
-      if (IntPtr.Size != 8)
-        return null;
       var tailLibraryName = '/' + libraryName;
       string resultPath = null;
-      LibCSo6.Bitness64.dl_iterate_phdr((ref LibCSo6.Bitness64.dl_phdr_info info, ulong size, IntPtr data) =>
+      LibCSo6.dl_iterate_phdr((ref LibCSo6.dl_phdr_info info, nuint size, IntPtr data) =>
         {
           var path = Marshal.PtrToStringAnsi(info.dlpi_name);
           if (path == null || !path.EndsWith(tailLibraryName))
