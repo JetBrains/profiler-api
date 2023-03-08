@@ -37,12 +37,9 @@ namespace JetBrains.Profiler.Api.Impl
           _ => throw new PlatformNotSupportedException()
         };
 #else
-      if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-        return PlatformId.Windows;
-      if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-        return PlatformId.MacOsX;
-      if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-        return PlatformId.Linux;
+      if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) return PlatformId.Windows;
+      if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX)) return PlatformId.MacOsX;
+      if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) return PlatformId.Linux;
       throw new PlatformNotSupportedException();
 #endif
     }
