@@ -4,7 +4,7 @@
     <RootNamespace>JetBrains.Profiler.Api.Tests</RootNamespace>
     <IsPackable>false</IsPackable>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>../Subplatform.Snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>../../key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
@@ -13,6 +13,6 @@
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\JetBrains.Profiler.Api\JetBrains.Profiler.Api.csproj" />
+    <ProjectReference Include="..\src\JetBrains.Profiler.Api.csproj" />
   </ItemGroup>
 </Project>

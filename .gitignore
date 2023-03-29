@@ -6,4 +6,3 @@ _ReSharper.Caches/
 **/bin/
 packages/
 *.user
-*.Snk

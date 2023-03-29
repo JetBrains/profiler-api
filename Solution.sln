@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JetBrains.Profiler.Api", "JetBrains.Profiler.Api\JetBrains.Profiler.Api.csproj", "{3D2DD4F1-5931-4A0B-B483-9BE9EE2A4B06}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JetBrains.Profiler.Api", "JetBrains.Profiler.Api\src\JetBrains.Profiler.Api.csproj", "{3D2DD4F1-5931-4A0B-B483-9BE9EE2A4B06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JetBrains.Profiler.Api.Tests", "JetBrains.Profiler.Api.Tests\JetBrains.Profiler.Api.Tests.csproj", "{2B0D4EFC-24BD-4408-BB23-CFB286587946}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JetBrains.Profiler.Api.Tests", "JetBrains.Profiler.Api\tests\JetBrains.Profiler.Api.Tests.csproj", "{2B0D4EFC-24BD-4408-BB23-CFB286587946}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

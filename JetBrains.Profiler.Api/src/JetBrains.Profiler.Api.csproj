@@ -5,7 +5,7 @@
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>../Subplatform.Snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>../../key.snk</AssemblyOriginatorKeyFile>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <Company>JetBrains s.r.o.</Company>
@@ -32,11 +32,11 @@ Supported frameworks:
   </PropertyGroup>
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-    <_Parameter1>JetBrains.Profiler.Api.Tests, PublicKey=002400000480000094000000060200000024000052534131000400000100010087f63ba6a789c30e210e7ec987234ad9fe33baf7367993bab1b312d6f72ca296b91ed5c658964ffb9e7570eb184a527c68c6bdba41cfe67d8cfd3f888234206bf39205a3652d3af3445bb6f715fdac532e289fea41229bac37762b67eb16f58fee717d2465fca9ee17f08ed16772a1fc52c1c17022e1f0d9bdd004524a663aca</_Parameter1>
+    <_Parameter1>JetBrains.Profiler.Api.Tests, PublicKey=002400000480000014010000060200000024000052534131000800000100010099c8e2491372a7a51493efe3d31530417bbe93d0b497a733205e6afa54e5cf947dad6864bf723a093caf4c5dc7e4ed0fd6f305ebe1749fdd93484700f1556832ee1a32daec575cccf806cf284468713a2c9c297d82b183fc61925723b8c50d96a7945a3d151878689c870e0e634b859d74e9ac69ea716a405fae305ba2965dea171f336e11a455a85d42bc7367552454e9e237aac6c9bb3918f1abdd2b45e3567e25179baf2059d64bafcda01d7b60552ec1f43d734414ce82883430bef362f4e7958d294fc9f848b05b8581043aecb486352be9d82f70a16419cbb86bb96c56fe84ee5b420a28e1fb424e1ddb6551aa47cab9761852d7d73ed6eae2ed7b43cd</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
   <ItemGroup>
-    <None Include="../icon.png" Pack="true" PackagePath="\" />
+    <None Include="../../icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2022.3.1" PrivateAssets="All" />
