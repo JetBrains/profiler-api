@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using JetBrains.Annotations;
 
 namespace JetBrains.Profiler.Api.Impl.Unix
 {
@@ -10,7 +9,6 @@ namespace JetBrains.Profiler.Api.Impl.Unix
 
     public static PlatformId Platform => ourPlatformLazy.Value;
 
-    [NotNull]
     private static string GetSysnameFromUname()
     {
       var buf = Marshal.AllocHGlobal(8 * 1024);
@@ -20,7 +18,7 @@ namespace JetBrains.Profiler.Api.Impl.Unix
           throw new Exception("Failed to get Unix system name");
 
         // Note: utsname::sysname is the first member of structure, so simple take it!
-        return Marshal.PtrToStringAnsi(buf);
+        return Marshal.PtrToStringAnsi(buf) ?? "";
       }
       finally
       {

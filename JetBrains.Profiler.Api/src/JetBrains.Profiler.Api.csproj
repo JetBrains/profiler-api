@@ -1,9 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net20;net471;netstandard1.1;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net20;netstandard1.1;netstandard2.0</TargetFrameworks>
     <RootNamespace>JetBrains.Profiler.Api</RootNamespace>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Nullable>enable</Nullable>
+    <LangVersion>latestmajor</LangVersion>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>../../key.snk</AssemblyOriginatorKeyFile>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -36,10 +38,9 @@ Supported frameworks:
     </AssemblyAttribute>
   </ItemGroup>
   <ItemGroup>
-    <None Include="../../icon.png" Pack="true" PackagePath="\" />
+    <None Include="../../icon.png" Pack="true" Visible="false" PackagePath="" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="2022.3.1" PrivateAssets="All" />
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="All" />
   </ItemGroup>
 </Project>

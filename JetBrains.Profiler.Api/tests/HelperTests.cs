@@ -14,23 +14,14 @@ namespace JetBrains.Profiler.Api.Tests
 
     [Platform("MacOsX")]
     [Test]
-    public void PlatformMacOsXTest()
-    {
-      Assert.AreEqual(Impl.PlatformId.MacOsX, Impl.Helper.Platform); 
-    }
+    public void PlatformMacOsXTest() => Assert.AreEqual(Impl.PlatformId.MacOsX, Impl.Helper.Platform);
 
     [Platform("Linux")]
     [Test]
-    public void PlatformLinuxTest()
-    {
-      Assert.AreEqual(Impl.PlatformId.Linux, Impl.Helper.Platform); 
-    }
+    public void PlatformLinuxTest() => Assert.AreEqual(Impl.PlatformId.Linux, Impl.Helper.Platform);
 
     [Platform("Win32NT")]
     [Test]
-    public void PlatformWindowsTest()
-    {
-      Assert.AreEqual(Impl.PlatformId.Windows, Impl.Helper.Platform); 
-    }
+    public void PlatformWindowsTest() => Assert.AreEqual(Impl.PlatformId.Windows, Impl.Helper.Platform);
   }
 }

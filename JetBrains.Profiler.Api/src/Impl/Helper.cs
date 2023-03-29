@@ -29,18 +29,18 @@ namespace JetBrains.Profiler.Api.Impl
     {
 #if NETSTANDARD1_0
 #error No OS detection possible
-#elif NET20 || NET35 || NET40 || NET45 || NET451 || NET452 || NET46 || NET461 || NET462 || NET47
+#elif NETCOREAPP1_1 || NETSTANDARD1_0 || NETSTANDARD1_1 || NETSTANDARD1_2 || NETSTANDARD1_3 || NETSTANDARD1_4 || NETSTANDARD1_5 || NETSTANDARD1_6
+      if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) return PlatformId.Windows;
+      if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX)) return PlatformId.MacOsX;
+      if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) return PlatformId.Linux;
+      throw new PlatformNotSupportedException();
+#else
       return Environment.OSVersion.Platform switch
         {
           PlatformID.Unix => UnixHelper.Platform,
           PlatformID.Win32NT => PlatformId.Windows,
           _ => throw new PlatformNotSupportedException()
         };
-#else
-      if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) return PlatformId.Windows;
-      if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX)) return PlatformId.MacOsX;
-      if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) return PlatformId.Linux;
-      throw new PlatformNotSupportedException();
 #endif
     }
 

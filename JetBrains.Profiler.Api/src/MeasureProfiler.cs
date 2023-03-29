@@ -1,5 +1,4 @@
 ﻿using System;
-using JetBrains.Annotations;
 using JetBrains.Profiler.Api.Impl;
 using JetBrains.Profiler.Api.Impl.Linux;
 using JetBrains.Profiler.Api.Impl.MacOsX;
@@ -60,7 +59,7 @@ namespace JetBrains.Profiler.Api
     ///   Doesn't throw any errors even if the application is run with profiling disabled.
     /// </summary>
     /// <param name="groupName">The name of the collected data block.</param>
-    public static void StartCollectingData([CanBeNull] string groupName)
+    public static void StartCollectingData(string? groupName)
     {
       switch (Helper.Platform)
       {
@@ -123,7 +122,7 @@ namespace JetBrains.Profiler.Api
     ///   The name of all data blocks that were not yet saved or dropped. This is not a file name. Currently
     ///   not used.
     /// </param>
-    public static void SaveData([CanBeNull] string name)
+    public static void SaveData(string? name)
     {
       switch (Helper.Platform)
       {

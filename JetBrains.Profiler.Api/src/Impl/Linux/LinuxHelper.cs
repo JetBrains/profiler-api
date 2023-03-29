@@ -11,10 +11,10 @@ namespace JetBrains.Profiler.Api.Impl.Linux
       return DlIteratePhdrFindLibraryPath(LibCoreApiSo.LibraryName) != null;
     }
 
-    public static string DlIteratePhdrFindLibraryPath(string libraryName)
+    public static string? DlIteratePhdrFindLibraryPath(string libraryName)
     {
       var tailLibraryName = '/' + libraryName;
-      string resultPath = null;
+      string? resultPath = null;
       LibCSo6.dl_iterate_phdr((ref LibCSo6.dl_phdr_info info, nuint size, IntPtr data) =>
         {
           var path = Marshal.PtrToStringAnsi(info.dlpi_name);

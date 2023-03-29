@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Threading;
-using JetBrains.Annotations;
 
 namespace JetBrains.Profiler.Api.Impl
 {
   // Note: Because net20 doesn't contain Lazy<T> implementation in mscorlib!
-  internal sealed class Lazy<TValue>
+  internal sealed class Lazy<TValue> where TValue : new()
   {
     #region Delegates
 
@@ -14,11 +13,11 @@ namespace JetBrains.Profiler.Api.Impl
     #endregion
 
     private readonly FuncDelegate myFunc;
-    private readonly object myFuncLock = new object();
+    private readonly object myFuncLock = new();
     private volatile int myHasValue;
-    private TValue myValue;
+    private TValue myValue= new();
 
-    public Lazy([NotNull] FuncDelegate func)
+    public Lazy(FuncDelegate func)
     {
       myFunc = func ?? throw new ArgumentNullException(nameof(func));
     }
