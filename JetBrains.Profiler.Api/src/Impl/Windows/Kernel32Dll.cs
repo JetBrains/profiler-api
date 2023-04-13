@@ -8,6 +8,6 @@ namespace JetBrains.Profiler.Api.Impl.Windows
     private const string LibraryName = "kernel32.dll";
 
     [DllImport(LibraryName, ExactSpelling = true, SetLastError = true)]
-    public static extern IntPtr GetModuleHandleW([MarshalAs(UnmanagedType.LPWStr)] string lpModuleName);
+    internal static extern IntPtr GetModuleHandleW([MarshalAs(UnmanagedType.LPWStr)] string lpModuleName);
   }
 }

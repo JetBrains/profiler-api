@@ -1,12 +1,12 @@
 ﻿using System;
-
-// ReSharper disable UnusedMember.Global
+using System.Diagnostics.CodeAnalysis;
 
 namespace JetBrains.Profiler.Api
 {
   /// <summary>
   ///   Performance/coverage profiler feature set.
   /// </summary>
+  [SuppressMessage("ReSharper", "UnusedMember.Global")]
   [Flags]
   public enum MeasureFeatures : uint
   {

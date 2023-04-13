@@ -11,12 +11,12 @@ namespace JetBrains.Profiler.Api.Impl.Linux
     private const string LibraryName = "libdl.so.2"; // Note: Don't use libdl.so because no such library in clean system!
 
     [DllImport(LibraryName, ExactSpelling = true)]
-    public static extern IntPtr dlopen([MarshalAs(UnmanagedType.LPStr)] string filename, int flags);
+    internal static extern IntPtr dlopen([MarshalAs(UnmanagedType.LPStr)] string filename, int flags);
 
     [DllImport(LibraryName, ExactSpelling = true)]
-    public static extern IntPtr dlsym(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string symbol);
+    internal static extern IntPtr dlsym(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string symbol);
 
     [DllImport(LibraryName, ExactSpelling = true)]
-    public static extern int dlclose(IntPtr handle);
+    internal static extern int dlclose(IntPtr handle);
   }
 }

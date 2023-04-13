@@ -1,18 +1,19 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using JetBrains.HabitatDetector;
 using JetBrains.Profiler.Api.Impl;
 using JetBrains.Profiler.Api.Impl.Linux;
 using JetBrains.Profiler.Api.Impl.MacOsX;
 using JetBrains.Profiler.Api.Impl.Windows;
-
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable IntroduceOptionalParameters.Global
-// ReSharper disable UnusedMember.Global
 
 namespace JetBrains.Profiler.Api
 {
   /// <summary>
   ///   Control performance/coverage profiling session.
   /// </summary>
+  [SuppressMessage("ReSharper", "UnusedType.Global")]
+  [SuppressMessage("ReSharper", "UnusedMember.Global")]
+  [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
   public static class MeasureProfiler
   {
     /// <summary>
@@ -21,19 +22,19 @@ namespace JetBrains.Profiler.Api
     /// <returns>The set of features.</returns>
     public static MeasureFeatures GetFeatures()
     {
-      switch (Helper.Platform)
+      switch (HabitatInfo.Platform)
       {
-      case PlatformId.Linux:
+      case JetPlatform.Linux:
         if (LinuxHelper.IsCoreApiAlreadyLoaded())
           if (Helper.ThrowIfFail(LibCoreApiSo.V1_Measure_CheckActive(Helper.Id, out var features)))
             return features;
         break;
-      case PlatformId.MacOsX:
+      case JetPlatform.MacOsX:
         if (MacOsXHelper.IsCoreApiAlreadyLoaded())
           if (Helper.ThrowIfFail(LibCoreApiDylib.V1_Measure_CheckActive(Helper.Id, out var features)))
             return features;
         break;
-      case PlatformId.Windows:
+      case JetPlatform.Windows:
         if (WindowsHelper.IsCoreApiAlreadyLoaded())
           if (Helper.ThrowIfFail(CoreApiDll.V1_Measure_CheckActive(Helper.Id, out var features)))
             return features;
@@ -49,6 +50,7 @@ namespace JetBrains.Profiler.Api
     ///   Start collecting profiling data.
     ///   Doesn't throw any errors even if the application is run with profiling disabled.
     /// </summary>
+    [SuppressMessage("ReSharper", "IntroduceOptionalParameters.Global")]
     public static void StartCollectingData()
     {
       StartCollectingData(null);
@@ -61,17 +63,17 @@ namespace JetBrains.Profiler.Api
     /// <param name="groupName">The name of the collected data block.</param>
     public static void StartCollectingData(string? groupName)
     {
-      switch (Helper.Platform)
+      switch (HabitatInfo.Platform)
       {
-      case PlatformId.Linux:
+      case JetPlatform.Linux:
         if (LinuxHelper.IsCoreApiAlreadyLoaded())
           Helper.ThrowIfFail(LibCoreApiSo.V1_Measure_StartCollecting(Helper.Id, groupName));
         break;
-      case PlatformId.MacOsX:
+      case JetPlatform.MacOsX:
         if (MacOsXHelper.IsCoreApiAlreadyLoaded())
           Helper.ThrowIfFail(LibCoreApiDylib.V1_Measure_StartCollecting(Helper.Id, groupName));
         break;
-      case PlatformId.Windows:
+      case JetPlatform.Windows:
         if (WindowsHelper.IsCoreApiAlreadyLoaded())
           Helper.ThrowIfFail(CoreApiDll.V1_Measure_StartCollecting(Helper.Id, groupName));
         break;
@@ -86,17 +88,17 @@ namespace JetBrains.Profiler.Api
     /// </summary>
     public static void StopCollectingData()
     {
-      switch (Helper.Platform)
+      switch (HabitatInfo.Platform)
       {
-      case PlatformId.Linux:
+      case JetPlatform.Linux:
         if (LinuxHelper.IsCoreApiAlreadyLoaded())
           Helper.ThrowIfFail(LibCoreApiSo.V1_Measure_StopCollecting(Helper.Id));
         break;
-      case PlatformId.MacOsX:
+      case JetPlatform.MacOsX:
         if (MacOsXHelper.IsCoreApiAlreadyLoaded())
           Helper.ThrowIfFail(LibCoreApiDylib.V1_Measure_StopCollecting(Helper.Id));
         break;
-      case PlatformId.Windows:
+      case JetPlatform.Windows:
         if (WindowsHelper.IsCoreApiAlreadyLoaded())
           Helper.ThrowIfFail(CoreApiDll.V1_Measure_StopCollecting(Helper.Id));
         break;
@@ -109,6 +111,7 @@ namespace JetBrains.Profiler.Api
     ///   Stop collecting data if needed and save all collected data blocks to the disk.
     ///   Doesn't throw any errors even if the application is run with profiling disabled.
     /// </summary>
+    [SuppressMessage("ReSharper", "IntroduceOptionalParameters.Global")]
     public static void SaveData()
     {
       SaveData(null);
@@ -124,17 +127,17 @@ namespace JetBrains.Profiler.Api
     /// </param>
     public static void SaveData(string? name)
     {
-      switch (Helper.Platform)
+      switch (HabitatInfo.Platform)
       {
-      case PlatformId.Linux:
+      case JetPlatform.Linux:
         if (LinuxHelper.IsCoreApiAlreadyLoaded())
           Helper.ThrowIfFail(LibCoreApiSo.V1_Measure_Save(Helper.Id, name));
         break;
-      case PlatformId.MacOsX:
+      case JetPlatform.MacOsX:
         if (MacOsXHelper.IsCoreApiAlreadyLoaded())
           Helper.ThrowIfFail(LibCoreApiDylib.V1_Measure_Save(Helper.Id, name));
         break;
-      case PlatformId.Windows:
+      case JetPlatform.Windows:
         if (WindowsHelper.IsCoreApiAlreadyLoaded())
           Helper.ThrowIfFail(CoreApiDll.V1_Measure_Save(Helper.Id, name));
         break;
@@ -149,17 +152,17 @@ namespace JetBrains.Profiler.Api
     /// </summary>
     public static void DropData()
     {
-      switch (Helper.Platform)
+      switch (HabitatInfo.Platform)
       {
-      case PlatformId.Linux:
+      case JetPlatform.Linux:
         if (LinuxHelper.IsCoreApiAlreadyLoaded())
           Helper.ThrowIfFail(LibCoreApiSo.V1_Measure_Drop(Helper.Id));
         break;
-      case PlatformId.MacOsX:
+      case JetPlatform.MacOsX:
         if (MacOsXHelper.IsCoreApiAlreadyLoaded())
           Helper.ThrowIfFail(LibCoreApiDylib.V1_Measure_Drop(Helper.Id));
         break;
-      case PlatformId.Windows:
+      case JetPlatform.Windows:
         if (WindowsHelper.IsCoreApiAlreadyLoaded())
           Helper.ThrowIfFail(CoreApiDll.V1_Measure_Drop(Helper.Id));
         break;
@@ -175,17 +178,17 @@ namespace JetBrains.Profiler.Api
     /// </summary>
     public static void Detach()
     {
-      switch (Helper.Platform)
+      switch (HabitatInfo.Platform)
       {
-      case PlatformId.Linux:
+      case JetPlatform.Linux:
         if (LinuxHelper.IsCoreApiAlreadyLoaded())
           Helper.ThrowIfFail(LibCoreApiSo.V1_Measure_Detach(Helper.Id));
         break;
-      case PlatformId.MacOsX:
+      case JetPlatform.MacOsX:
         if (MacOsXHelper.IsCoreApiAlreadyLoaded())
           Helper.ThrowIfFail(LibCoreApiDylib.V1_Measure_Detach(Helper.Id));
         break;
-      case PlatformId.Windows:
+      case JetPlatform.Windows:
         if (WindowsHelper.IsCoreApiAlreadyLoaded())
           Helper.ThrowIfFail(CoreApiDll.V1_Measure_Detach(Helper.Id));
         break;

@@ -1,47 +1,20 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using JetBrains.Profiler.Api.Impl.Unix;
-
-namespace JetBrains.Profiler.Api.Impl
+﻿namespace JetBrains.Profiler.Api.Impl
 {
   internal static class Helper
   {
-    private static readonly Lazy<uint> ourIdLazy = new(DeduceId);
-    private static readonly Lazy<PlatformId> ourPlatformLazy = new(DeducePlatform);
+    public static readonly uint Id;
 
-    public static uint Id => ourIdLazy.Value;
-    public static PlatformId Platform => ourPlatformLazy.Value;
-
-    private static uint DeduceId()
+    static Helper()
     {
 #if NETCOREAPP1_0 || NETCOREAPP1_1 || NETSTANDARD1_0 || NETSTANDARD1_1 || NETSTANDARD1_2 || NETSTANDARD1_3 || NETSTANDARD1_4 || NETSTANDARD1_5 || NETSTANDARD1_6
       const ushort major = 4;
       const ushort minor = 0;
 #else
-      var version = Environment.Version;
+      var version = System.Environment.Version;
       var major = checked((ushort) version.Major);
       var minor = checked((ushort) version.Minor);
 #endif
-      return (uint) major << 16 | minor;
-    }
-
-    private static PlatformId DeducePlatform()
-    {
-#if NETSTANDARD1_0
-#error No OS detection possible
-#elif NETCOREAPP1_1 || NETSTANDARD1_0 || NETSTANDARD1_1 || NETSTANDARD1_2 || NETSTANDARD1_3 || NETSTANDARD1_4 || NETSTANDARD1_5 || NETSTANDARD1_6
-      if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) return PlatformId.Windows;
-      if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX)) return PlatformId.MacOsX;
-      if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) return PlatformId.Linux;
-      throw new PlatformNotSupportedException();
-#else
-      return Environment.OSVersion.Platform switch
-        {
-          PlatformID.Unix => UnixHelper.Platform,
-          PlatformID.Win32NT => PlatformId.Windows,
-          _ => throw new PlatformNotSupportedException()
-        };
-#endif
+      Id = (uint) major << 16 | minor;
     }
 
     public static bool ThrowIfFail(HResults hr)

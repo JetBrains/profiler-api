@@ -1,19 +1,18 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
-
-// ReSharper disable InconsistentNaming
-// ReSharper disable IdentifierTypo
 
 namespace JetBrains.Profiler.Api.Impl.MacOsX
 {
+  [SuppressMessage("ReSharper", "IdentifierTypo")]
   internal static class LibDyldDylib
   {
     private const string LibraryName = "/usr/lib/system/libdyld.dylib";
 
     [DllImport(LibraryName, ExactSpelling = true)]
-    public static extern IntPtr dlopen([MarshalAs(UnmanagedType.LPStr)] string filename, int flags);
+    internal static extern IntPtr dlopen([MarshalAs(UnmanagedType.LPStr)] string filename, int flags);
 
     [DllImport(LibraryName, ExactSpelling = true)]
-    public static extern int dlclose(IntPtr handle);
+    internal static extern int dlclose(IntPtr handle);
   }
 }

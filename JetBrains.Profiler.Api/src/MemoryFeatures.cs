@@ -1,12 +1,12 @@
 ﻿using System;
-
-// ReSharper disable UnusedMember.Global
+using System.Diagnostics.CodeAnalysis;
 
 namespace JetBrains.Profiler.Api
 {
   /// <summary>
   ///   Memory profiler feature set.
   /// </summary>
+  [SuppressMessage("ReSharper", "UnusedMember.Global")]
   [Flags]
   public enum MemoryFeatures : uint
   {

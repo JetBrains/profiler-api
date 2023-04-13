@@ -1,18 +1,19 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using JetBrains.HabitatDetector;
 using JetBrains.Profiler.Api.Impl;
 using JetBrains.Profiler.Api.Impl.Linux;
 using JetBrains.Profiler.Api.Impl.MacOsX;
 using JetBrains.Profiler.Api.Impl.Windows;
-
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable IntroduceOptionalParameters.Global
-// ReSharper disable UnusedMember.Global
 
 namespace JetBrains.Profiler.Api
 {
   /// <summary>
   ///   Control memory profiling session.
   /// </summary>
+  [SuppressMessage("ReSharper", "UnusedType.Global")]
+  [SuppressMessage("ReSharper", "UnusedMember.Global")]
+  [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
   public static class MemoryProfiler
   {
     /// <summary>
@@ -21,19 +22,19 @@ namespace JetBrains.Profiler.Api
     /// <returns>The set of features.</returns>
     public static MemoryFeatures GetFeatures()
     {
-      switch (Helper.Platform)
+      switch (HabitatInfo.Platform)
       {
-      case PlatformId.Linux:
+      case JetPlatform.Linux:
         if (LinuxHelper.IsCoreApiAlreadyLoaded())
           if (Helper.ThrowIfFail(LibCoreApiSo.V1_Memory_CheckActive(Helper.Id, out var features)))
             return features;
         break;
-      case PlatformId.MacOsX:
+      case JetPlatform.MacOsX:
         if (MacOsXHelper.IsCoreApiAlreadyLoaded())
           if (Helper.ThrowIfFail(LibCoreApiDylib.V1_Memory_CheckActive(Helper.Id, out var features)))
             return features;
         break;
-      case PlatformId.Windows:
+      case JetPlatform.Windows:
         if (WindowsHelper.IsCoreApiAlreadyLoaded())
           if (Helper.ThrowIfFail(CoreApiDll.V1_Memory_CheckActive(Helper.Id, out var features)))
             return features;
@@ -49,6 +50,7 @@ namespace JetBrains.Profiler.Api
     ///   Collect memory snapshot and save it to the disk. This method forces full GC.
     ///   Doesn't throw any errors even if the application is run with profiling disabled.
     /// </summary>
+    [SuppressMessage("ReSharper", "IntroduceOptionalParameters.Global")]
     public static void GetSnapshot()
     {
       GetSnapshot(null);
@@ -61,17 +63,17 @@ namespace JetBrains.Profiler.Api
     /// <param name="name">The name of the memory snapshot. This is not a file name. Currently not used.</param>
     public static void GetSnapshot(string? name)
     {
-      switch (Helper.Platform)
+      switch (HabitatInfo.Platform)
       {
-      case PlatformId.Linux:
+      case JetPlatform.Linux:
         if (LinuxHelper.IsCoreApiAlreadyLoaded())
           Helper.ThrowIfFail(LibCoreApiSo.V1_Memory_GetSnapshot(Helper.Id, name));
         break;
-      case PlatformId.MacOsX:
+      case JetPlatform.MacOsX:
         if (MacOsXHelper.IsCoreApiAlreadyLoaded())
           Helper.ThrowIfFail(LibCoreApiDylib.V1_Memory_GetSnapshot(Helper.Id, name));
         break;
-      case PlatformId.Windows:
+      case JetPlatform.Windows:
         if (WindowsHelper.IsCoreApiAlreadyLoaded())
           Helper.ThrowIfFail(CoreApiDll.V1_Memory_GetSnapshot(Helper.Id, name));
         break;
@@ -86,17 +88,17 @@ namespace JetBrains.Profiler.Api
     /// </summary>
     public static void ForceGc()
     {
-      switch (Helper.Platform)
+      switch (HabitatInfo.Platform)
       {
-      case PlatformId.Linux:
+      case JetPlatform.Linux:
         if (LinuxHelper.IsCoreApiAlreadyLoaded())
           Helper.ThrowIfFail(LibCoreApiSo.V1_Memory_ForceGc(Helper.Id));
         break;
-      case PlatformId.MacOsX:
+      case JetPlatform.MacOsX:
         if (MacOsXHelper.IsCoreApiAlreadyLoaded())
           Helper.ThrowIfFail(LibCoreApiDylib.V1_Memory_ForceGc(Helper.Id));
         break;
-      case PlatformId.Windows:
+      case JetPlatform.Windows:
         if (WindowsHelper.IsCoreApiAlreadyLoaded())
           Helper.ThrowIfFail(CoreApiDll.V1_Memory_ForceGc(Helper.Id));
         break;
@@ -113,17 +115,17 @@ namespace JetBrains.Profiler.Api
     /// </summary>
     public static void CollectAllocations(bool enable)
     {
-      switch (Helper.Platform)
+      switch (HabitatInfo.Platform)
       {
-      case PlatformId.Linux:
+      case JetPlatform.Linux:
         if (LinuxHelper.IsCoreApiAlreadyLoaded())
           Helper.ThrowIfFail(LibCoreApiSo.V1_Memory_CollectAllocations(Helper.Id, enable));
         break;
-      case PlatformId.MacOsX:
+      case JetPlatform.MacOsX:
         if (MacOsXHelper.IsCoreApiAlreadyLoaded())
           Helper.ThrowIfFail(LibCoreApiDylib.V1_Memory_CollectAllocations(Helper.Id, enable));
         break;
-      case PlatformId.Windows:
+      case JetPlatform.Windows:
         if (WindowsHelper.IsCoreApiAlreadyLoaded())
           Helper.ThrowIfFail(CoreApiDll.V1_Memory_CollectAllocations(Helper.Id, enable));
         break;
@@ -139,17 +141,17 @@ namespace JetBrains.Profiler.Api
     /// </summary>
     public static void Detach()
     {
-      switch (Helper.Platform)
+      switch (HabitatInfo.Platform)
       {
-      case PlatformId.Linux:
+      case JetPlatform.Linux:
         if (LinuxHelper.IsCoreApiAlreadyLoaded())
           Helper.ThrowIfFail(LibCoreApiSo.V1_Memory_Detach(Helper.Id));
         break;
-      case PlatformId.MacOsX:
+      case JetPlatform.MacOsX:
         if (MacOsXHelper.IsCoreApiAlreadyLoaded())
           Helper.ThrowIfFail(LibCoreApiDylib.V1_Memory_Detach(Helper.Id));
         break;
-      case PlatformId.Windows:
+      case JetPlatform.Windows:
         if (WindowsHelper.IsCoreApiAlreadyLoaded())
           Helper.ThrowIfFail(CoreApiDll.V1_Memory_Detach(Helper.Id));
         break;

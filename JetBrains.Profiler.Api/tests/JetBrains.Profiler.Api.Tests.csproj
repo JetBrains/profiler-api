@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net35;netcoreapp2.1;netcoreapp3.1;net5.0</TargetFrameworks>
+    <TargetFrameworks>net35;netcoreapp3.1;net7.0</TargetFrameworks>
     <RootNamespace>JetBrains.Profiler.Api.Tests</RootNamespace>
     <Nullable>enable</Nullable>
     <LangVersion>latestmajor</LangVersion>

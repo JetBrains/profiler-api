@@ -7,7 +7,7 @@ namespace JetBrains.Profiler.Api.Impl.Linux
   [SuppressMessage("ReSharper", "InconsistentNaming")]
   internal static class LibCoreApiSo
   {
-    public const string LibraryName = "libJetBrains.Profiler.CoreApi.so";
+    internal const string LibraryName = "libJetBrains.Profiler.CoreApi.so";
 
     [SuppressMessage("ReSharper", "NotAccessedField.Local")]
     private static readonly SafeDlHandle ourHandle; // Note(ww898): Keep the handle till domain or load context unloading!!!
@@ -35,7 +35,9 @@ namespace JetBrains.Profiler.Api.Impl.Linux
 #endif
             ("Failed to get a function entry point " + functionName);
 
+#pragma warning disable CS0618
         return (TDelegate)Marshal.GetDelegateForFunctionPointer(ptr, typeof(TDelegate));
+#pragma warning restore CS0618
       }
 
       // @formatter:off
@@ -62,7 +64,7 @@ namespace JetBrains.Profiler.Api.Impl.Linux
     {
       private readonly IntPtr myHandle;
 
-      public SafeDlHandle(IntPtr handle)
+      internal SafeDlHandle(IntPtr handle)
       {
         myHandle = handle;
       }
@@ -79,38 +81,38 @@ namespace JetBrains.Profiler.Api.Impl.Linux
     #region Measure
 
     // @formatter:off
-    public delegate HResults V1_Measure_CheckActive_Delegate(uint id, out MeasureFeatures features);
-    public delegate HResults V1_Measure_StartCollecting_Delegate(uint id, [MarshalAs(UnmanagedType.LPWStr)] string? groupName);
-    public delegate HResults V1_Measure_StopCollecting_Delegate(uint id);
-    public delegate HResults V1_Measure_Save_Delegate(uint id, [MarshalAs(UnmanagedType.LPWStr)] string? name);
-    public delegate HResults V1_Measure_Drop_Delegate(uint id);
-    public delegate HResults V1_Measure_Detach_Delegate(uint id);
+    internal delegate HResults V1_Measure_CheckActive_Delegate(uint id, out MeasureFeatures features);
+    internal delegate HResults V1_Measure_StartCollecting_Delegate(uint id, [MarshalAs(UnmanagedType.LPWStr)] string? groupName);
+    internal delegate HResults V1_Measure_StopCollecting_Delegate(uint id);
+    internal delegate HResults V1_Measure_Save_Delegate(uint id, [MarshalAs(UnmanagedType.LPWStr)] string? name);
+    internal delegate HResults V1_Measure_Drop_Delegate(uint id);
+    internal delegate HResults V1_Measure_Detach_Delegate(uint id);
     // @formatter:on
 
-    public static readonly V1_Measure_CheckActive_Delegate V1_Measure_CheckActive;
-    public static readonly V1_Measure_StartCollecting_Delegate V1_Measure_StartCollecting;
-    public static readonly V1_Measure_StopCollecting_Delegate V1_Measure_StopCollecting;
-    public static readonly V1_Measure_Save_Delegate V1_Measure_Save;
-    public static readonly V1_Measure_Drop_Delegate V1_Measure_Drop;
-    public static readonly V1_Measure_Detach_Delegate V1_Measure_Detach;
+    internal static readonly V1_Measure_CheckActive_Delegate V1_Measure_CheckActive;
+    internal static readonly V1_Measure_StartCollecting_Delegate V1_Measure_StartCollecting;
+    internal static readonly V1_Measure_StopCollecting_Delegate V1_Measure_StopCollecting;
+    internal static readonly V1_Measure_Save_Delegate V1_Measure_Save;
+    internal static readonly V1_Measure_Drop_Delegate V1_Measure_Drop;
+    internal static readonly V1_Measure_Detach_Delegate V1_Measure_Detach;
 
     #endregion
 
     #region Memory
 
     // @formatter:off
-    public delegate HResults V1_Memory_CheckActive_Delegate(uint id, out MemoryFeatures features);
-    public delegate HResults V1_Memory_GetSnapshot_Delegate(uint id, [MarshalAs(UnmanagedType.LPWStr)] string? name);
-    public delegate HResults V1_Memory_ForceGc_Delegate(uint id);
-    public delegate HResults V1_Memory_CollectAllocations_Delegate(uint id, bool enable);
-    public delegate HResults V1_Memory_Detach_Delegate(uint id);
+    internal delegate HResults V1_Memory_CheckActive_Delegate(uint id, out MemoryFeatures features);
+    internal delegate HResults V1_Memory_GetSnapshot_Delegate(uint id, [MarshalAs(UnmanagedType.LPWStr)] string? name);
+    internal delegate HResults V1_Memory_ForceGc_Delegate(uint id);
+    internal delegate HResults V1_Memory_CollectAllocations_Delegate(uint id, bool enable);
+    internal delegate HResults V1_Memory_Detach_Delegate(uint id);
     // @formatter:on
 
-    public static readonly V1_Memory_CheckActive_Delegate V1_Memory_CheckActive;
-    public static readonly V1_Memory_GetSnapshot_Delegate V1_Memory_GetSnapshot;
-    public static readonly V1_Memory_ForceGc_Delegate V1_Memory_ForceGc;
-    public static readonly V1_Memory_CollectAllocations_Delegate V1_Memory_CollectAllocations;
-    public static readonly V1_Memory_Detach_Delegate V1_Memory_Detach;
+    internal static readonly V1_Memory_CheckActive_Delegate V1_Memory_CheckActive;
+    internal static readonly V1_Memory_GetSnapshot_Delegate V1_Memory_GetSnapshot;
+    internal static readonly V1_Memory_ForceGc_Delegate V1_Memory_ForceGc;
+    internal static readonly V1_Memory_CollectAllocations_Delegate V1_Memory_CollectAllocations;
+    internal static readonly V1_Memory_Detach_Delegate V1_Memory_Detach;
 
     #endregion
   }
