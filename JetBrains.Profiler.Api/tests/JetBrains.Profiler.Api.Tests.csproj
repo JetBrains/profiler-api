@@ -3,7 +3,7 @@
     <TargetFrameworks>net35;netcoreapp3.1;net7.0</TargetFrameworks>
     <RootNamespace>JetBrains.Profiler.Api.Tests</RootNamespace>
     <Nullable>enable</Nullable>
-    <LangVersion>latestmajor</LangVersion>
+    <LangVersion>10</LangVersion>
     <IsPackable>false</IsPackable>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>../../key.snk</AssemblyOriginatorKeyFile>

@@ -2,10 +2,9 @@
   <PropertyGroup>
     <TargetFrameworks>net20;netstandard1.3;netstandard2.0</TargetFrameworks>
     <RootNamespace>JetBrains.Profiler.Api</RootNamespace>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Nullable>enable</Nullable>
-    <LangVersion>latestmajor</LangVersion>
+    <LangVersion>10</LangVersion>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>../../key.snk</AssemblyOriginatorKeyFile>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -20,7 +19,7 @@
     • Linux Glibc/Musl x64/arm/arm64 (most desktop distributions like Alpine, CentOS, Debian, Fedora, Ubuntu and derivatives)
 Supported frameworks:
     • .NET Framework 2.0 and later
-    • .NET Standard 1.1 and later
+    • .NET Standard 1.3 and later
     • .NET Core 1.0 and later
     • .NET 5.0 and later
     • Mono 5.10 and later</PackageReleaseNotes>
@@ -30,7 +29,6 @@ Supported frameworks:
     <PackageIcon>icon.png</PackageIcon>
     <PackageTags>jetbrains profiler profiling performance memory coverage net dotnet netcore dotnetcore netstandard windows uwp macos mac linux musl glibc x86 x64 arm arm64 x86-64 x86_64 aarch64</PackageTags>
     <Version>1.4.0-preview1</Version>
-    <LangVersion>default</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
@@ -41,7 +39,7 @@ Supported frameworks:
     <None Include="../../icon.png" Pack="true" Visible="false" PackagePath="" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="JetBrains.HabitatDetector" Version="1.0.0-preview5" />
+    <PackageReference Include="JetBrains.HabitatDetector" Version="1.0.1" />
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="All" />
   </ItemGroup>
 </Project>
