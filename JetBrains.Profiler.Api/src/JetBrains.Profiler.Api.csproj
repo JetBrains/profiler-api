@@ -28,7 +28,7 @@ Supported frameworks:
     <PackageIconUrl>https://resources.jetbrains.com/storage/products/resharper/img/icons/ProfilerApi_128.png</PackageIconUrl>
     <PackageIcon>icon.png</PackageIcon>
     <PackageTags>jetbrains profiler profiling performance memory coverage net dotnet netcore dotnetcore netstandard windows uwp macos mac linux musl glibc x86 x64 arm arm64 x86-64 x86_64 aarch64</PackageTags>
-    <Version>1.4.0-preview1</Version>
+    <Version>1.4.0-preview2</Version>
   </PropertyGroup>
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
@@ -39,7 +39,7 @@ Supported frameworks:
     <None Include="../../icon.png" Pack="true" Visible="false" PackagePath="" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="JetBrains.HabitatDetector" Version="1.0.1" />
+    <PackageReference Include="JetBrains.HabitatDetector" Version="1.0.2" />
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="All" />
   </ItemGroup>
 </Project>
