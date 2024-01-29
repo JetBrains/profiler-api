@@ -1,6 +1,6 @@
 # JetBrains.Profiler.Api [![official JetBrains project](https://jb.gg/badges/official.svg)](https://confluence.jetbrains.com/display/ALL/JetBrains+on+GitHub)
 
-[![net](https://github.com/JetBrains/profiler-api/actions/workflows/build-net.yml/badge.svg)](https://github.com/JetBrains/profiler-api/actions/workflows/build-net.yml)
+[![net](https://github.com/JetBrains/profiler-api/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/JetBrains/profiler-api/actions/workflows/build-and-test.yml)
 
 [![NuGet Badge](https://buildstats.info/nuget/JetBrains.Profiler.Api)](https://www.nuget.org/packages/JetBrains.Profiler.Api)
 
