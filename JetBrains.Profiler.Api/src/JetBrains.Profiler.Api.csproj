@@ -14,9 +14,9 @@
     <Authors>Mikhail Pilin, Ilia Kirianovskii</Authors>
     <Description>JetBrains Profiler API allows you to control profiling sessions right from the code of your application. Use this API in conjunction with JetBrains dotTrace, JetBrains dotMemory, or JetBrains dotCover. This API can also be used in conjunction with JetBrains Self-Profiling API.</Description>
     <PackageReleaseNotes>Supported OSs:
-    • Windows 7 x86/x64 and later, Windows 11 x86/x64/ARM64 and later
-    • macOS 10.12 Sierra x64 and later, macOS 11.0 Big Sur x64/ARM64 and later
-    • Linux Glibc/Musl x64/ARM/ARM64 (most distributions like Alpine, CentOS, Debian, Fedora, Ubuntu, Red Hat and derivatives)
+    • Windows 7 x86/x64 and later, Windows 11 x86/x64/arm64 and later
+    • macOS 10.12 Sierra x64 and later, macOS 11.0 Big Sur x64/arm64 and later
+    • Linux Glibc/Musl x64/armv7l/aarch64 (most distributions like Alpine, CentOS, Debian, Fedora, Ubuntu, Red Hat and derivatives)
 Supported frameworks:
     • .NET Framework 2.0 and later
     • .NET Standard 1.3 and later
@@ -27,7 +27,7 @@ Supported frameworks:
     <PackageProjectUrl>https://github.com/JetBrains/profiler-api/blob/master/README.md</PackageProjectUrl>
     <PackageIcon>icon.png</PackageIcon>
     <PackageTags>jetbrains profiler profiling performance memory coverage net dotnet netcore dotnetcore netstandard windows uwp macos mac linux musl glibc x86 x64 arm arm64 x86-64 x86_64 aarch64</PackageTags>
-    <Version>1.4.2</Version>
+    <Version>1.4.3</Version>
   </PropertyGroup>
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
@@ -38,7 +38,7 @@ Supported frameworks:
     <None Include="../../icon.png" Pack="true" Visible="false" PackagePath="" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="JetBrains.HabitatDetector" Version="1.2.0" />
+    <PackageReference Include="JetBrains.HabitatDetector" Version="1.2.1" />
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="All" />
   </ItemGroup>
 </Project>
