@@ -27,7 +27,7 @@ Supported frameworks:
     <PackageProjectUrl>https://github.com/JetBrains/profiler-api/blob/master/README.md</PackageProjectUrl>
     <PackageIcon>icon.png</PackageIcon>
     <PackageTags>jetbrains profiler profiling performance memory coverage net dotnet netcore dotnetcore netstandard windows uwp macos mac linux musl glibc x86 x64 arm arm64 x86-64 x86_64 aarch64</PackageTags>
-    <Version>1.4.7</Version>
+    <Version>1.4.8</Version>
   </PropertyGroup>
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
