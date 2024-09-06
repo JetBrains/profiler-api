@@ -2,7 +2,7 @@
 
 [![net](https://github.com/JetBrains/profiler-api/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/JetBrains/profiler-api/actions/workflows/build-and-test.yml)
 
-[![NuGet Badge](https://buildstats.info/nuget/JetBrains.Profiler.Api)](https://www.nuget.org/packages/JetBrains.Profiler.Api)
+[![NuGet Version](https://img.shields.io/nuget/v/JetBrains.Profiler.Api?label=JetBrains.Profiler.Api)](https://www.nuget.org/packages/JetBrains.Profiler.Api)
 
 JetBrains Profiler API allows you to control profiling sessions right from the code of your application. 
 Use this API in conjunction with JetBrains dotTrace, JetBrains dotMemory, or JetBrains dotCover. 
